@@ -1,0 +1,15 @@
+<drawables>
+    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+    <bitmap id="monky1" filename="monky1.png" />
+    <bitmap id="monky2" filename="monky2.png" />
+    <bitmap id="monky3" filename="monky3.png" />
+    <bitmap id="monky4" filename="monky4.png" />
+    <bitmap id="monky5" filename="monky5.png" />
+    <bitmap id="monky6" filename="monky6.png" />
+    <bitmap id="monky7" filename="monky7.png" />
+    <bitmap id="monky8" filename="monky8.png" />
+    <bitmap id="monky9" filename="monky9.png" />
+    <bitmap id="monky10" filename="monky10.png" />
+    <bitmap id="monky11" filename="monky11.png" />
+    <bitmap id="monky12" filename="monky12.png" />
+</drawables>
