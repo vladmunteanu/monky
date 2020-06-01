@@ -11,12 +11,17 @@ const BACK_DIRECTION = 3;  // 10, 11, 12
 const OUTSIDE_X = -50;
 const OUTSIDE_Y = -50;
 
+const MAX_REPETITIONS = 3;
+
+const ANIMATION_SPEED = 300;
+
 
 class PlayfulWidgetView extends WatchUi.View {
 
 	var monky_bitmaps;
 	var current_position;
 	var update_timer;
+	var repetitions;
 	
 	var xPos;
 	var yPos;
@@ -39,13 +44,19 @@ class PlayfulWidgetView extends WatchUi.View {
         monky_bitmaps[11] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.monky12,:locX=>OUTSIDE_X,:locY=>OUTSIDE_Y});
         
         current_position = 0;
+        repetitions = 0;
         
         update_timer = new Timer.Timer();
+    }
+    
+    function startAnimationTimer() {
+    	repetitions = 0;
+    	update_timer.start(self.method(:timerCallback), ANIMATION_SPEED, true);
     }
 
     // Load your resources here
     function onLayout(dc) {
-    	update_timer.start(self.method(:timerCallback), 300, true);
+    	startAnimationTimer();
         xPos = dc.getWidth() / 2;
         yPos = dc.getHeight() / 2;
     }
@@ -61,9 +72,6 @@ class PlayfulWidgetView extends WatchUi.View {
 	}
 	
 	function animateCharacter(dc) {
-        if (current_position >= NUM_IMAGES) {
-        	current_position = 0;
-        }
         // draw current
         var current_direction = 0;
         var current_offset = 0;
@@ -86,6 +94,16 @@ class PlayfulWidgetView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
         dc.clear();
         
+        if (current_position >= NUM_IMAGES) {
+        	current_position = 0;
+        	repetitions += 1;
+        	if (repetitions == MAX_REPETITIONS) {
+        		update_timer.stop();
+        		var restart_timer = new Timer.Timer();
+        		restart_timer.start(self.method(:startAnimationTimer), 5000, false);
+        	}
+        }
+
         animateCharacter(dc);
         
         // increment position for next call
