@@ -2,8 +2,10 @@ using Toybox.Application;
 
 class PlayfulWidgetApp extends Application.AppBase {
 
+	var mainView, mainDelegate;
+
     function initialize() {
-        AppBase.initialize();
+        AppBase.initialize();        
     }
 
     // onStart() is called on application start up
@@ -16,7 +18,14 @@ class PlayfulWidgetApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return [ new PlayfulWidgetView() ];
+        return getMainView();
     }
-
+    
+    function getMainView() {
+    	if (mainView == null) {
+    		mainView = new PlayfulWidgetView();
+    		mainDelegate = new PlayfulWidgetDelegate();
+    	}
+    	return [mainView, mainDelegate];
+    }
 }

@@ -1,3 +1,7 @@
 <strings>
     <string id="AppName">PlayfulWidget</string>
+    <string id="hungry">Hungry</string>
+    <string id="not_hungry">Not Hungry</string>
+    <string id="fit">Fit</string>
+    <string id="not_fit">Not Fit</string>
 </strings>

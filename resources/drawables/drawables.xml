@@ -12,4 +12,8 @@
     <bitmap id="monky10" filename="monky10.png" />
     <bitmap id="monky11" filename="monky11.png" />
     <bitmap id="monky12" filename="monky12.png" />
+    <bitmap id="cake" filename="cake.png"/>
+    <bitmap id="scooter" filename="scooter.png"/>
+    <bitmap id="full_heart" filename="full_heart.png"/>
+    <bitmap id="broken_heart" filename="broken_heart.png"/>
 </drawables>
