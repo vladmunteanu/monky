@@ -158,6 +158,7 @@ class SwipeGameView extends WatchUi.View {
     	commons.successLaps = 0;
     	commons.failedLaps = 0;
     	commons.stopped = false;
+    	commons.timer.stop();
     }
 
 }

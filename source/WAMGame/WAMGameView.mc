@@ -168,6 +168,8 @@ class WAMGameView extends WatchUi.View {
     // memory.
     function onHide() {
     	System.println("on hide view 4");
+    	commons.timer.stop();
+    	commons.finishTimer.stop();
     }
 
 }
