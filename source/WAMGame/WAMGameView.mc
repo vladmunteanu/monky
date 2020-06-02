@@ -154,11 +154,11 @@ class WAMGameView extends WatchUi.View {
 			var textY = dc.getHeight() / 2;
 			var resultText = "Congratulations!";
 			dc.drawText(textX, textY - 2 * fontHeight, font, resultText, Graphics.TEXT_JUSTIFY_CENTER );
-			resultText = "total laps: " + commons.laps;
+			resultText = "total: " + commons.laps;
 			dc.drawText(textX, textY - 1 * fontHeight, font, resultText, Graphics.TEXT_JUSTIFY_CENTER );
-			resultText = "successful laps: " + commons.successLaps;
+			resultText = "whacked: " + commons.successLaps;
 			dc.drawText(textX, textY, font, resultText, Graphics.TEXT_JUSTIFY_CENTER );
-			resultText = "failed laps: " + commons.failedLaps;
+			resultText = "missed: " + commons.failedLaps;
 			dc.drawText(textX, textY + 1 * fontHeight, font, resultText, Graphics.TEXT_JUSTIFY_CENTER );
         }
     }
@@ -168,6 +168,10 @@ class WAMGameView extends WatchUi.View {
     // memory.
     function onHide() {
     	System.println("on hide view 4");
+    	commons.laps = 0;
+    	commons.successLaps = 0;
+    	commons.failedLaps = 0;
+    	commons.stopped = false;
     	commons.timer.stop();
     	commons.finishTimer.stop();
     }
