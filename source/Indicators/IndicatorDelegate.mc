@@ -17,7 +17,7 @@ class IndicatorDelegate extends WatchUi.InputDelegate {
 	function onSwipe(swipeEvent) {
 		System.println("2 Swiped direction: " + swipeEvent.getDirection());
 		if (swipeEvent.getDirection() == WatchUi.SWIPE_UP) {
-        	WatchUi.popView(WatchUi.SWIPE_RIGHT);
+        	WatchUi.popView(WatchUi.SLIDE_RIGHT);
         }
 		return true;
 	}

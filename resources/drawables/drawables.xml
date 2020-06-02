@@ -16,4 +16,5 @@
     <bitmap id="scooter" filename="scooter.png"/>
     <bitmap id="full_heart" filename="full_heart.png"/>
     <bitmap id="broken_heart" filename="broken_heart.png"/>
+    <bitmap id="mole" filename="mole_white.png"/>
 </drawables>

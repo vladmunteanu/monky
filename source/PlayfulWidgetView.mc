@@ -160,7 +160,6 @@ class PlayfulWidgetView extends WatchUi.View {
 
     // Update the view
     function onUpdate(dc) {
-    	System.println("on update view 1");
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
         dc.clear();
 
