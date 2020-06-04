@@ -1,11 +1,14 @@
 using Toybox.Application;
+using Toybox.Math;
+using Toybox.System;
 
 class PlayfulWidgetApp extends Application.AppBase {
 
 	var mainView, mainDelegate;
 
     function initialize() {
-        AppBase.initialize();        
+        AppBase.initialize();
+        Math.srand(System.getTimer());    
     }
 
     // onStart() is called on application start up
