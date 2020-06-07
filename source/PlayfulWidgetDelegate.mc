@@ -22,7 +22,10 @@ class PlayfulWidgetDelegate extends WatchUi.InputDelegate {
         }
         else if (coordinates[0] >= 145 && coordinates[0] <= 175 && coordinates[1] >= 45 && coordinates[1] <= 75) {
         	System.println("Clicked on scooter");
-        	WatchUi.pushView(new IndicatorView("scooter"), new IndicatorDelegate(), WatchUi.SLIDE_DOWN);
+        	var customMenu = new WatchUi.Menu2({:title=>"Games Menu"});
+            customMenu.addItem(new WatchUi.MenuItem("Swipe that way!", null, Constants.GAME_SWIPE, null));
+			customMenu.addItem(new WatchUi.MenuItem("Whack that mole!", null, Constants.GAME_WAM, null));
+            WatchUi.pushView(customMenu, new GamesMenuDelegate(), WatchUi.SLIDE_DOWN );
         }
         return true;
     }
@@ -34,20 +37,4 @@ class PlayfulWidgetDelegate extends WatchUi.InputDelegate {
 		}
 		return true; 
 	}
-	
-	function onSwipe(swipeEvent) {
-        System.println("1 Swiped direction: " + swipeEvent.getDirection());
-        
-        if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT) {
-        	var view = new SwipeGameView();
-        	var delegate = new SwipeGameDelegate(view);
-			WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
-        }
-        if (swipeEvent.getDirection() == WatchUi.SWIPE_UP) {
-        	var view = new WAMGameView();
-        	var delegate =  new WAMGameDelegate(view);
-			WatchUi.pushView(view, delegate, WatchUi.SLIDE_UP);
-    	}
-        return true;
-    }
 }

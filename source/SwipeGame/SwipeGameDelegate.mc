@@ -46,10 +46,8 @@ class SwipeGameDelegate extends WatchUi.InputDelegate {
 	        }
 	        view.commons.resetCurrentDirection();
 		} else {
-			if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT) {
-				var view = new WAMGameView();
-				var delegate = new WAMGameDelegate(view);
-				WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
+			if (swipeEvent.getDirection() == WatchUi.SWIPE_RIGHT) {
+				WatchUi.popView(WatchUi.SLIDE_RIGHT);
         	}
         }
 		return true;
