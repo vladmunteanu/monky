@@ -21,14 +21,6 @@ class PlayfulWidgetApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return getMainView();
-    }
-    
-    function getMainView() {
-    	if (mainView == null) {
-    		mainView = new PlayfulWidgetView();
-    		mainDelegate = new PlayfulWidgetDelegate();
-    	}
-    	return [mainView, mainDelegate];
+        return [new PlayfulWidgetView(), new PlayfulWidgetDelegate()];
     }
 }
