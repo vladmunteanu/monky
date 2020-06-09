@@ -6,7 +6,7 @@ using Toybox.Time;
 using Toybox.WatchUi;
 
 (:background)
-class PlayfulWidgetApp extends Application.AppBase {
+class MonkyApp extends Application.AppBase {
 
 	var mainView, mainDelegate;
 	var currentState;
@@ -31,8 +31,8 @@ class PlayfulWidgetApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-    	mainView = new PlayfulWidgetView();
-    	mainDelegate = new PlayfulWidgetDelegate();
+    	mainView = new MonkyView();
+    	mainDelegate = new MonkyDelegate();
 		startGameService();
 		
     	currentState = getGameState();
@@ -112,7 +112,7 @@ function stopGameService() {
 }
 
 function startGameService() {
-    var time = new Time.Duration(300);
+    var time = new Time.Duration(60 * 60);  // each hour
     Background.registerForTemporalEvent(time);
     Background.registerForGoalEvent(Application.GOAL_TYPE_STEPS);
     Background.registerForGoalEvent(Application.GOAL_TYPE_FLOORS_CLIMBED);

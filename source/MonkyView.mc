@@ -4,7 +4,7 @@ using Toybox.Math;
 using Toybox.Graphics;
 
 
-class PlayfulWidgetView extends WatchUi.View {
+class MonkyView extends WatchUi.View {
 
 	// indicators
 	var heart_bitmaps, fitLabel, notFitLabel, fitBitmap, hungryLabel, notHungryLabel, hungryBitmap;

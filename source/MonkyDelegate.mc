@@ -3,7 +3,7 @@ using Toybox.WatchUi;
 using Toybox.Application;
 
 
-class PlayfulWidgetDelegate extends WatchUi.InputDelegate {
+class MonkyDelegate extends WatchUi.InputDelegate {
 
 	function initialize() {
 		WatchUi.InputDelegate.initialize();
