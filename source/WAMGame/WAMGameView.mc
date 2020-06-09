@@ -1,3 +1,4 @@
+using Toybox.Application;
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Math;
@@ -39,6 +40,8 @@ class WAMGameCommons extends Lang.Object {
 		System.println("Finished");
 		stopped = true;
 		timer.stop();
+		Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, successLaps, Constants.MAX_HAPPY);
+		Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_XP, successLaps, null);
 		WatchUi.requestUpdate();
 	}
 

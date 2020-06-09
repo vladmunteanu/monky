@@ -9,7 +9,6 @@ class GameCharacter {
     var fitness;
     var education;
     var xp;
-    var lvl;
     var ilvl;
 
     function initialize() {

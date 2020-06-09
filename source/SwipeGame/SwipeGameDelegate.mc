@@ -6,6 +6,7 @@ using Toybox.Application;
 class SwipeGameDelegate extends WatchUi.InputDelegate {
 
 	var view;
+	var lastKeyRight;
 
 	function initialize(swipeGameView) {
 		WatchUi.InputDelegate.initialize();
@@ -13,11 +14,17 @@ class SwipeGameDelegate extends WatchUi.InputDelegate {
 	}
 	
 	function onKey(keyEvent) {
-		System.println("2 onKey: " + keyEvent.getKey());
 		if (keyEvent.getKey() == WatchUi.KEY_ESC) {
 			if (view.commons.stopped) {
 				WatchUi.popView(WatchUi.SLIDE_RIGHT);
 			} else {
+				var currentTimeMs = System.getTimer();
+				if (lastKeyRight && currentTimeMs - lastKeyRight < 300) {
+					WatchUi.popView(WatchUi.SLIDE_RIGHT);
+				}
+				else {
+					lastKeyRight = currentTimeMs;
+				}
 				if (view.commons.getCurrentDirection().equals("right")) {
 					view.commons.registerLap(true);
 					view.commons.resetCurrentDirection();
@@ -27,21 +34,13 @@ class SwipeGameDelegate extends WatchUi.InputDelegate {
 		return true;
 	}
 	
-	function onKeyPressed(keyEvent) {
-		System.println("2 onKeyPressed: " + keyEvent.getKey());
-		return true;
-	}
-	
 	function onSwipe(swipeEvent) {
-		System.println("2 Swiped direction: " + swipeEvent.getDirection());
 		if (!view.commons.stopped) {
 			var direction = view.commons.getCurrentDirection();
 			if (swipeEvent.getDirection() == view.commons.directionsToGesture[direction]) {
-				System.println("Good swipe");
 				view.commons.registerLap(true);
 	        }
 	        else {
-	        	System.println("Bad swipe");
 	        	view.commons.registerLap(false);
 	        }
 	        view.commons.resetCurrentDirection();

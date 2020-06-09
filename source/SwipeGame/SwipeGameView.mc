@@ -1,3 +1,4 @@
+using Toybox.Application;
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Math;
@@ -41,7 +42,8 @@ class SwipeGameCommons extends Lang.Object {
 		if (current_timeout >= timeoutThreshold) {
 			timer.start(self.method(:timerCallback), getTimeout(), false);
 		} else {
-			System.println("Game finished!");
+			Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, successLaps, Constants.MAX_HAPPY);
+			Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_XP, successLaps, null);
 			stopped = true;
 		}
 	}
@@ -64,7 +66,6 @@ class SwipeGameCommons extends Lang.Object {
 	
 	function resetCurrentDirection() {
 		if (!stopped) {
-			System.println("Resetting, current laps: " + laps);
 			stopTimer();
 			current_direction = directions[Math.rand() % directions.size()];
 			startTimer();
@@ -110,7 +111,6 @@ class SwipeGameView extends WatchUi.View {
     
     function initialize() {
         View.initialize();
-        System.println("initialize view 2");
         commons = new SwipeGameCommons();
     }
     // Load your resources here
@@ -127,7 +127,6 @@ class SwipeGameView extends WatchUi.View {
 
     // Update the view
     function onUpdate(dc) {
-    	System.println("on update view 2");
     	dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
         dc.clear();
 
@@ -153,7 +152,6 @@ class SwipeGameView extends WatchUi.View {
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() {
-    	System.println("on hide view 2");
     	commons.laps = 0;
     	commons.successLaps = 0;
     	commons.failedLaps = 0;

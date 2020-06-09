@@ -92,5 +92,4 @@ class PlayfulWidgetView extends WatchUi.View {
     function onHide() {
     	characterRepr.stopAnimationTimer();
     }
-
 }
