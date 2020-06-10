@@ -57,14 +57,7 @@ class MonkyApp extends Application.AppBase {
         var gameState = getProperty(Constants.STATE_KEY);
         if (gameState == null) {
             // the initial game state
-            gameState = {
-                Constants.STATE_KEY_HEALTH => 100,
-                Constants.STATE_KEY_HAPPY => 50,
-                Constants.STATE_KEY_CLEAN => 50,
-                Constants.STATE_KEY_FIT => 50,
-                Constants.STATE_KEY_XP => 0,
-                Constants.STATE_KEY_ILVL => 0,
-            };
+            gameState = getInitialState();
         }
         return gameState;
     }
@@ -101,6 +94,18 @@ class MonkyApp extends Application.AppBase {
         }
         currentState.put(key, currentValue);
         WatchUi.requestUpdate();
+    }
+
+    function getInitialState() {
+        return {
+            Constants.STATE_KEY_HEALTH => 100,
+            Constants.STATE_KEY_HAPPY => 50,
+            Constants.STATE_KEY_CLEAN => 50,
+            Constants.STATE_KEY_FIT => 50,
+            Constants.STATE_KEY_XP => 0,
+            Constants.STATE_KEY_ILVL => 0,
+            Constants.STATE_KEY_LAST_UPDATE => System.getTimer(),
+        };
     }
 }
 

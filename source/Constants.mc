@@ -44,4 +44,9 @@ module Constants {
     const STATE_KEY_FIT = "fit";
     const STATE_KEY_XP = "xp";
     const STATE_KEY_ILVL = "ilvl";
+    const STATE_KEY_LAST_UPDATE = "last-update";
+    const STATE_KEY_LAST_NOTIF = "last-notif";
+
+    const NOTIFICATION_FREQUENCY = 60 * 60 * 3;
+    const NOTIFICATION_THRESHOLD = 30;
 }
