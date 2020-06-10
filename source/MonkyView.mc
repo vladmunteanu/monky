@@ -1,3 +1,4 @@
+using Toybox.Application;
 using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Math;
@@ -7,8 +8,7 @@ using Toybox.Graphics;
 class MonkyView extends WatchUi.View {
 
 	// indicators
-	var heart_bitmaps, fitLabel, notFitLabel, fitBitmap, hungryLabel, notHungryLabel, hungryBitmap;
-	var hasHealth, isFit, isHungry;
+	var heartBitmaps, activitiesBitmap, foodBitmap;
 
 	var font = Graphics.FONT_TINY;
 	var lineSpacing = Graphics.getFontHeight(font);
@@ -17,10 +17,6 @@ class MonkyView extends WatchUi.View {
 	
     function initialize() {
         View.initialize();
-
-        hasHealth = true;
-        isFit = false;
-        isHungry = true;
 
         characterRepr = new GameCharacterRepresentation();
     }
@@ -31,27 +27,14 @@ class MonkyView extends WatchUi.View {
         characterRepr.loadResources(dc);
 
         // load the full heart and broken heart bitmaps
-		if (heart_bitmaps == null) {
-			heart_bitmaps = new [2];
-			heart_bitmaps[0] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.full_heart});
-			heart_bitmaps[1] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.broken_heart});
+		if (heartBitmaps == null) {
+			heartBitmaps = new [2];
+			heartBitmaps[0] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.full_heart});
+			heartBitmaps[1] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.broken_heart});
         }
 
-		// load the text for other indicators
-		if (fitLabel == null) {
-			fitLabel = WatchUi.loadResource( Rez.Strings.fit );
-			fitBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.scooter});
-		}
-        if (notFitLabel == null) {
-        	notFitLabel = WatchUi.loadResource( Rez.Strings.not_fit );
-        }
-        if (hungryLabel == null) {
-        	hungryLabel = WatchUi.loadResource( Rez.Strings.hungry );
-        	hungryBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.cake});
-        }
-        if (notHungryLabel == null) {
-        	notHungryLabel = WatchUi.loadResource( Rez.Strings.not_hungry );
-        }
+		activitiesBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.scooter});
+    	foodBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.cake});
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -62,19 +45,25 @@ class MonkyView extends WatchUi.View {
     }
 	
 	function drawIndicators(dc) {
-        var heart_id = 0;
-        if (!hasHealth) {
-        	heart_id = 1;
+        var heartId = 1;
+        var currentState = Application.getApp().currentState;
+        var isHealthy = (currentState.get(Constants.STATE_KEY_HEALTH) > 50);
+        var isFit = (currentState.get(Constants.STATE_KEY_FIT) > 50);
+        var isHappy = (currentState.get(Constants.STATE_KEY_HAPPY) > 50);
+        var isClean = (currentState.get(Constants.STATE_KEY_CLEAN) > 50);
+
+        if (isHealthy && isFit && isHappy && isClean) {
+        	heartId = 0;
         }
         
-        heart_bitmaps[heart_id].setLocation(50, 50);
-        heart_bitmaps[heart_id].draw(dc);
+        heartBitmaps[heartId].setLocation(50, 50);
+        heartBitmaps[heartId].draw(dc);
         
-        hungryBitmap.setLocation(100, 30);
-        hungryBitmap.draw(dc);
+        foodBitmap.setLocation(100, 30);
+        foodBitmap.draw(dc);
         
-        fitBitmap.setLocation(150, 50);
-        fitBitmap.draw(dc);
+        activitiesBitmap.setLocation(150, 50);
+        activitiesBitmap.draw(dc);
 	}
 
     // Update the view

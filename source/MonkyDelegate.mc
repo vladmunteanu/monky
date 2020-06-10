@@ -22,10 +22,10 @@ class MonkyDelegate extends WatchUi.InputDelegate {
             WatchUi.pushView(customMenu, new FoodMenuDelegate(), WatchUi.SLIDE_DOWN);
         }
         else if (coordinates[0] >= 145 && coordinates[0] <= 175 && coordinates[1] >= 45 && coordinates[1] <= 75) {
-        	var customMenu = new WatchUi.Menu2({:title=>"Games Menu"});
+        	var customMenu = new WatchUi.Menu2({:title=>"Activities Menu"});
             customMenu.addItem(new WatchUi.MenuItem("Swipe that way!", null, Constants.GAME_SWIPE, null));
 			customMenu.addItem(new WatchUi.MenuItem("Whack that mole!", null, Constants.GAME_WAM, null));
-            WatchUi.pushView(customMenu, new GamesMenuDelegate(), WatchUi.SLIDE_DOWN );
+            WatchUi.pushView(customMenu, new ActivitiesMenuDelegate(), WatchUi.SLIDE_DOWN );
         }
         return true;
     }

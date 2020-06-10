@@ -2,28 +2,6 @@ using Toybox.Math;
 using Toybox.WatchUi;
 using Toybox.Timer;
 
-class GameCharacter {
-    // attributes
-    var health;
-    var happiness;
-    var fitness;
-    var education;
-    var xp;
-    var ilvl;
-
-    function initialize() {
-    }
-
-    function loadState() {
-    }
-
-    function saveState() {
-    }
-
-    function computeAttributes() {
-        // given current state, computes all attributes
-    }
-}
 
 class GameCharacterRepresentation {
 

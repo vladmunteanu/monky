@@ -1,6 +1,6 @@
 using Toybox.WatchUi;
 
-class GamesMenuDelegate extends WatchUi.Menu2InputDelegate {
+class ActivitiesMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     function initialize() {
         Menu2InputDelegate.initialize();
