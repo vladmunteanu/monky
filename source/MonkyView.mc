@@ -7,14 +7,14 @@ using Toybox.Graphics;
 
 class MonkyView extends WatchUi.View {
 
-	// indicators
-	var heartBitmaps, activitiesBitmap, foodBitmap;
+    // indicators
+    var heartBitmaps, activitiesBitmap, foodBitmap;
 
-	var font = Graphics.FONT_TINY;
-	var lineSpacing = Graphics.getFontHeight(font);
+    var font = Graphics.FONT_TINY;
+    var lineSpacing = Graphics.getFontHeight(font);
 
     var characterRepr;
-	
+
     function initialize() {
         View.initialize();
 
@@ -27,24 +27,24 @@ class MonkyView extends WatchUi.View {
         characterRepr.loadResources(dc);
 
         // load the full heart and broken heart bitmaps
-		if (heartBitmaps == null) {
-			heartBitmaps = new [2];
-			heartBitmaps[0] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.full_heart});
-			heartBitmaps[1] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.broken_heart});
+        if (heartBitmaps == null) {
+            heartBitmaps = new [2];
+            heartBitmaps[0] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.full_heart});
+            heartBitmaps[1] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.broken_heart});
         }
 
-		activitiesBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.scooter});
-    	foodBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.cake});
+        activitiesBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.scooter});
+        foodBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.cake});
     }
 
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
-    	characterRepr.startAnimationTimer();
+        characterRepr.startAnimationTimer();
     }
-	
-	function drawIndicators(dc) {
+
+    function drawIndicators(dc) {
         var heartId = 1;
         var currentState = Application.getApp().currentState;
         var isHealthy = (currentState.get(Constants.STATE_KEY_HEALTH) > 50);
@@ -53,25 +53,25 @@ class MonkyView extends WatchUi.View {
         var isClean = (currentState.get(Constants.STATE_KEY_CLEAN) > 50);
 
         if (isHealthy && isFit && isHappy && isClean) {
-        	heartId = 0;
+            heartId = 0;
         }
-        
-        heartBitmaps[heartId].setLocation(50, 50);
+
+        heartBitmaps[heartId].setLocation(40, 50);
         heartBitmaps[heartId].draw(dc);
-        
+
         foodBitmap.setLocation(100, 30);
         foodBitmap.draw(dc);
-        
+
         activitiesBitmap.setLocation(150, 50);
         activitiesBitmap.draw(dc);
-	}
+    }
 
     // Update the view
     function onUpdate(dc) {
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
         dc.clear();
 
-		drawIndicators(dc);
+        drawIndicators(dc);
         characterRepr.animate(dc);
     }
 
@@ -79,6 +79,6 @@ class MonkyView extends WatchUi.View {
     // state of this View here. This includes freeing resources from
     // memory.
     function onHide() {
-    	characterRepr.stopAnimationTimer();
+        characterRepr.stopAnimationTimer();
     }
 }
