@@ -14,11 +14,14 @@ class BubbleBathView extends WatchUi.View {
     var animationTimer;
     var startTime;
     var totalAnimationSteps;
+    var animationFrequency = 300;
 
     var wallColor = Graphics.COLOR_YELLOW;
     var floorColor = Graphics.COLOR_BLACK;
     var bubbleOuterColor = Graphics.COLOR_DK_BLUE;
     var bubbleInnerColor = Graphics.COLOR_BLUE;
+
+    var minRewardTimeSpent = 3; // seconds
 
     function initialize() {
         View.initialize();
@@ -32,7 +35,7 @@ class BubbleBathView extends WatchUi.View {
     }
 
     function onShow() {
-        animationTimer.start(self.method(:timerCallback), 300, true);
+        animationTimer.start(self.method(:timerCallback), animationFrequency, true);
         startTime = System.getTimer();
     }
 
@@ -62,6 +65,12 @@ class BubbleBathView extends WatchUi.View {
 
     function onHide() {
         animationTimer.stop();
+        var timeSpent = Math.floor((System.getTimer() - startTime) / 1000);
+        Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_CLEAN, timeSpent, Constants.MAX_CLEAN);
+        if (timeSpent >= minRewardTimeSpent) {
+            Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 5, Constants.MAX_HAPPY);
+            Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_XP, 10, null);
+        }
     }
 
     function timerCallback() {
@@ -97,10 +106,7 @@ class BubbleBathView extends WatchUi.View {
     }
 
     function finishBath() {
-        var timeSpent = Math.floor((System.getTimer() - startTime) / 1000);
-        Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 5, Constants.MAX_HAPPY);
-        Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_CLEAN, timeSpent, Constants.MAX_CLEAN);
-        Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_XP, 10, null);
+        animationTimer.stop();
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
     }
 
