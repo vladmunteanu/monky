@@ -7,15 +7,22 @@ class ActivitiesMenuDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item) {
-        if( item.getId().equals(Constants.GAME_SWIPE) ) {
+        if( item.getId().equals(Constants.ACTIVITY_SWIPE) ) {
             var view = new SwipeGameView();
-        	var delegate = new SwipeGameDelegate(view);
-			WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
-        } else if ( item.getId().equals(Constants.GAME_WAM) ) {
+            var delegate = new SwipeGameDelegate(view);
+            WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
+        }
+        else if ( item.getId().equals(Constants.ACTIVITY_WAM) ) {
             var view = new WAMGameView();
-        	var delegate =  new WAMGameDelegate(view);
-			WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
-        } else {
+            var delegate =  new WAMGameDelegate(view);
+            WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
+        }
+        else if ( item.getId().equals(Constants.ACTIVITY_BATH) ) {
+            var view = new BubbleBathView();
+            var delegate =  null;
+            WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
+        }
+        else {
             WatchUi.requestUpdate();
         }
     }

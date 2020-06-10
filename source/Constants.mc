@@ -1,15 +1,15 @@
 (:background)
 module Constants {
-	// character attributes
-	const MIN_HEALTH = 1;
-	const MAX_HEALTH = 100;
-	const MIN_HAPPY = 1;
-	const MAX_HAPPY = 100;
-	const MIN_FIT = 1;
-	const MAX_FIT = 100;
-	const MIN_CLEAN = 1;
-	const MAX_CLEAN = 100;
-	
+    // character attributes
+    const MIN_HEALTH = 1;
+    const MAX_HEALTH = 100;
+    const MIN_HAPPY = 1;
+    const MAX_HAPPY = 100;
+    const MIN_FIT = 1;
+    const MAX_FIT = 100;
+    const MIN_CLEAN = 1;
+    const MAX_CLEAN = 100;
+
     // character animation
     const MAX_ANIMATION_REPETITIONS = 3;
     const ANIMATION_SPEED = 300;
@@ -28,14 +28,15 @@ module Constants {
     const DAILY_XP_REWARD = 500;
     const GOAL_XP_REWARD = 100;
 
-	const FOOD_VEGETABLES = "vegetables";
-	const FOOD_STEAK = "steak";
-	const FOOD_COOKIE = "cookie";
+    const FOOD_VEGETABLES = "vegetables";
+    const FOOD_STEAK = "steak";
+    const FOOD_COOKIE = "cookie";
 
-    const GAME_SWIPE = "swipe";
-    const GAME_WAM = "wam";
+    const ACTIVITY_SWIPE = "swipe";
+    const ACTIVITY_WAM = "wam";
+    const ACTIVITY_BATH = "bath";
 
-	// state key constants
+    // state key constants
     const STATE_KEY = "game-state";
     const STATE_KEY_HEALTH = "health";
     const STATE_KEY_HAPPY = "happy";

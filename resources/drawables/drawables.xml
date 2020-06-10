@@ -17,4 +17,5 @@
     <bitmap id="full_heart" filename="full_heart.png"/>
     <bitmap id="broken_heart" filename="broken_heart.png"/>
     <bitmap id="mole" filename="mole_white.png"/>
+    <bitmap id="bath_tub" filename="bath_tub2.png"/>
 </drawables>

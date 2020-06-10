@@ -25,8 +25,9 @@ class MonkyDelegate extends WatchUi.InputDelegate {
             }
             else if (bitmapWasHit(view.activitiesBitmap, clickEvent)) {
                 var customMenu = new WatchUi.Menu2({:title=>"Activities Menu"});
-                customMenu.addItem(new WatchUi.MenuItem("Swipe that way!", null, Constants.GAME_SWIPE, null));
-                customMenu.addItem(new WatchUi.MenuItem("Whack that mole!", null, Constants.GAME_WAM, null));
+                customMenu.addItem(new WatchUi.MenuItem("Swipe that way!", null, Constants.ACTIVITY_SWIPE, null));
+                customMenu.addItem(new WatchUi.MenuItem("Whack that mole!", null, Constants.ACTIVITY_WAM, null));
+                customMenu.addItem(new WatchUi.MenuItem("Bubble bath", null, Constants.ACTIVITY_BATH, null));
                 WatchUi.pushView(customMenu, new ActivitiesMenuDelegate(), WatchUi.SLIDE_DOWN );
             }
         }
