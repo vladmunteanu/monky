@@ -5,8 +5,8 @@ using Toybox.Timer;
 
 
 class EatingProgressDelegate extends WatchUi.BehaviorDelegate {
-	var timer, currentProgress, progressBar;
-    
+    var timer, currentProgress, progressBar;
+
     function initialize(startValue, progressBarInstance) {
         BehaviorDelegate.initialize();
         timer = new Timer.Timer();
@@ -17,17 +17,17 @@ class EatingProgressDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onBack() {
-    	timer.stop();
+        timer.stop();
         return true;
     }
-    
+
    function timerCallback() {
-   		currentProgress += 25;
-   		if (currentProgress > 100) {
-   			timer.stop();
-   			WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
-   		}
-    	progressBar.setProgress(currentProgress);
+        currentProgress += 25;
+        if (currentProgress > 100) {
+            timer.stop();
+            WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+        }
+        progressBar.setProgress(currentProgress);
     }
 }
 
@@ -39,17 +39,16 @@ class FoodMenuDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     function onSelect(item) {
-    	System.println("On select food: " + item.getId());
         if(item.getId().equals(Constants.FOOD_VEGETABLES)) {
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HEALTH, 10, Constants.MAX_HEALTH);
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_FIT, 5, Constants.MAX_FIT);
             Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_HAPPY, 5, Constants.MIN_HAPPY);
-        } 
+        }
         else if (item.getId().equals(Constants.FOOD_COOKIE)) {
-        	Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 15, Constants.MAX_HAPPY);
+            Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 15, Constants.MAX_HAPPY);
             Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_HEALTH, 5, Constants.MIN_HEALTH);
             Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_FIT, 5, Constants.MIN_FIT);
-        } 
+        }
         else if (item.getId().equals(Constants.FOOD_STEAK)){
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HEALTH, 5, Constants.MAX_HEALTH);
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 10, Constants.MAX_HAPPY);
