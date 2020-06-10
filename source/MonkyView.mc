@@ -9,6 +9,7 @@ class MonkyView extends WatchUi.View {
 
     // indicators
     var heartBitmaps, activitiesBitmap, foodBitmap;
+    var heartId;
 
     var font = Graphics.FONT_TINY;
     var lineSpacing = Graphics.getFontHeight(font);
@@ -19,6 +20,7 @@ class MonkyView extends WatchUi.View {
         View.initialize();
 
         characterRepr = new GameCharacterRepresentation();
+        heartId = 1;
     }
 
     // Load your resources here
@@ -45,7 +47,6 @@ class MonkyView extends WatchUi.View {
     }
 
     function drawIndicators(dc) {
-        var heartId = 1;
         var currentState = Application.getApp().currentState;
         var isHealthy = (currentState.get(Constants.STATE_KEY_HEALTH) > 50);
         var isFit = (currentState.get(Constants.STATE_KEY_FIT) > 50);
@@ -54,6 +55,9 @@ class MonkyView extends WatchUi.View {
 
         if (isHealthy && isFit && isHappy && isClean) {
             heartId = 0;
+        }
+        else {
+            heartId = 1;
         }
 
         heartBitmaps[heartId].setLocation(40, 50);
