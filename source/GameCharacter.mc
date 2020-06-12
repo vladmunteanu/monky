@@ -13,8 +13,8 @@ class GameCharacterRepresentation {
 
     var repetitions, loops;
     var currentPosition;
-    var xPos;
-    var yPos;
+    var initialX, xPos;
+    var initialY, yPos;
 
     var bitmaps;
     var timer;
@@ -43,15 +43,22 @@ class GameCharacterRepresentation {
         bitmaps[10] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.monky11});
         bitmaps[11] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.monky12});
 
-        xPos = dc.getWidth() / 2;
-        yPos = dc.getHeight() / 2;
+        initialX = dc.getWidth() / 2;
+        xPos = initialX;
+        initialY = dc.getHeight() / 2;
+        yPos = initialY;
     }
 
     function startAnimationTimer() {
         timer.start(self.method(:timerCallback), Constants.ANIMATION_SPEED, true);
     }
 
-    function stopAnimationTimer() {
+    function stopAnimation() {
+        loops = 0;
+        repetitions = 0;
+        currentPosition = 0;
+        xPos = initialX;
+        yPos = initialY;
         timer.stop();
     }
 

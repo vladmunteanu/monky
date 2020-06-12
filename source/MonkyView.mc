@@ -81,10 +81,7 @@ class MonkyView extends WatchUi.View {
         characterRepr.animate(dc);
     }
 
-    // Called when this View is removed from the screen. Save the
-    // state of this View here. This includes freeing resources from
-    // memory.
     function onHide() {
-        characterRepr.stopAnimationTimer();
+        characterRepr.stopAnimation();
     }
 }
