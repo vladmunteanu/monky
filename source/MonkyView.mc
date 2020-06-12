@@ -60,7 +60,6 @@ class MonkyView extends WatchUi.View {
             heartId = 1;
         }
 
-        System.println("Screen width " + dc.getWidth() + " height " + dc.getHeight());
         var maxWidth = dc.getWidth();
         var maxHeight = dc.getHeight();
         heartBitmaps[heartId].setLocation(40, maxWidth / 4);
