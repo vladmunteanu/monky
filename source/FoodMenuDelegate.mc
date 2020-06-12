@@ -42,18 +42,17 @@ class FoodMenuDelegate extends WatchUi.Menu2InputDelegate {
         if(item.getId().equals(Constants.FOOD_VEGETABLES)) {
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HEALTH, 10, Constants.MAX_HEALTH);
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_FIT, 5, Constants.MAX_FIT);
-            Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_HAPPY, 5, Constants.MIN_HAPPY);
+            Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_HAPPY, 10, Constants.MIN_HAPPY);
         }
         else if (item.getId().equals(Constants.FOOD_COOKIE)) {
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 15, Constants.MAX_HAPPY);
             Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_HEALTH, 5, Constants.MIN_HEALTH);
-            Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_FIT, 5, Constants.MIN_FIT);
+            Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_FIT, 10, Constants.MIN_FIT);
         }
         else if (item.getId().equals(Constants.FOOD_STEAK)){
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HEALTH, 5, Constants.MAX_HEALTH);
-            Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 10, Constants.MAX_HAPPY);
-            Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_FIT, 5, Constants.MIN_FIT);
-            Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_CLEAN, 5, Constants.MIN_CLEAN);
+            Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_FIT, 10, Constants.MAX_FIT);
+            Application.getApp().decrCurrentStateItem(Constants.STATE_KEY_CLEAN, 10, Constants.MIN_CLEAN);
         }
         Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_XP, 10, null);
         var progressBar = new WatchUi.ProgressBar("Eating " + item.getId(), 0);
