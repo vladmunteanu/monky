@@ -11,10 +11,10 @@ class GameCharacterRepresentation {
     var rightDirection = 2;  // 7, 8, 9
     var back_direction = 3;  // 10, 11, 12
 
-    var repetitions;
+    var repetitions, loops;
     var currentPosition;
     var xPos;
-	var yPos;
+    var yPos;
 
     var bitmaps;
     var timer;
@@ -22,6 +22,7 @@ class GameCharacterRepresentation {
     function initialize() {
         bitmaps = new [numImages];
 
+        loops = 0;
         repetitions = 0;
         currentPosition = 0;
 
@@ -47,8 +48,7 @@ class GameCharacterRepresentation {
     }
 
     function startAnimationTimer() {
-    	repetitions = 0;
-    	timer.start(self.method(:timerCallback), Constants.ANIMATION_SPEED, true);
+        timer.start(self.method(:timerCallback), Constants.ANIMATION_SPEED, true);
     }
 
     function stopAnimationTimer() {
@@ -56,36 +56,40 @@ class GameCharacterRepresentation {
     }
 
     function timerCallback() {
-    	WatchUi.requestUpdate();
-	}
+        WatchUi.requestUpdate();
+    }
 
     function animate(dc) {
         // draw current
         if (currentPosition >= numImages) {
-        	currentPosition = 0;
-        	repetitions += 1;
-        	if (repetitions == Constants.MAX_ANIMATION_REPETITIONS) {
-        		timer.stop();
-        		timer.start(self.method(:startAnimationTimer), Constants.ANIMATION_PAUSE, false);
-        	}
+            currentPosition = 0;
+            repetitions += 1;
+            if (repetitions == Constants.MAX_ANIMATION_REPETITIONS) {
+                repetitions = 0;
+                loops += 1;
+                timer.stop();
+                if (loops <= Constants.MAX_ANIMATION_REPETITIONS) {
+                    timer.start(self.method(:startAnimationTimer), Constants.ANIMATION_PAUSE, false);
+                }
+            }
         }
-        
+
         var currentDirection = 0;
         var currentOffset = 0;
         if (currentPosition > 0) {
-        	currentDirection = Math.floor(currentPosition / 3);
-        	currentOffset = currentPosition % 3;
-        } 
+            currentDirection = Math.floor(currentPosition / 3);
+            currentOffset = currentPosition % 3;
+        }
         if (currentDirection == leftDirection) {
-        	xPos = xPos - (currentOffset * 10);
+            xPos = xPos - (currentOffset * 10);
         }
         else if (currentDirection == rightDirection) {
-        	xPos = xPos + (currentOffset * 10);
+            xPos = xPos + (currentOffset * 10);
         }
         bitmaps[currentPosition].setLocation(xPos, yPos);
         bitmaps[currentPosition].draw(dc);
 
         // increment position for next call
         currentPosition += 1;
-	}
+    }
 }
