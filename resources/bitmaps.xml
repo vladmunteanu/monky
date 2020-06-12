@@ -1,0 +1,21 @@
+<resources>
+    <bitmap id="LauncherIcon" filename="images/launcher_icon.png" />
+    <bitmap id="monky1" filename="images/monky1.png" />
+    <bitmap id="monky2" filename="images/monky2.png" />
+    <bitmap id="monky3" filename="images/monky3.png" />
+    <bitmap id="monky4" filename="images/monky4.png" />
+    <bitmap id="monky5" filename="images/monky5.png" />
+    <bitmap id="monky6" filename="images/monky6.png" />
+    <bitmap id="monky7" filename="images/monky7.png" />
+    <bitmap id="monky8" filename="images/monky8.png" />
+    <bitmap id="monky9" filename="images/monky9.png" />
+    <bitmap id="monky10" filename="images/monky10.png" />
+    <bitmap id="monky11" filename="images/monky11.png" />
+    <bitmap id="monky12" filename="images/monky12.png" />
+    <bitmap id="cake" filename="images/cake.png"/>
+    <bitmap id="scooter" filename="images/scooter.png"/>
+    <bitmap id="full_heart" filename="images/full_heart.png"/>
+    <bitmap id="broken_heart" filename="images/broken_heart.png"/>
+    <bitmap id="mole" filename="images/mole.png"/>
+    <bitmap id="bath_tub" filename="images/bath_tub.png"/>
+</resources>

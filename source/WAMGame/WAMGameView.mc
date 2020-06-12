@@ -6,38 +6,38 @@ using Toybox.Graphics;
 using Toybox.Timer;
 using Toybox.Lang;
 
+const WAM_NUM_HOLES = 12;
 
-class WAMGameCommons extends Lang.Object {
-    var holeCoordinates = [
-        [45, 80], [85, 80], [125, 80], [165, 80],
-        [45, 120], [85, 120], [125, 120], [165, 120],
-        [45, 160], [85, 160], [125, 160], [165, 160],
-    ];
 
+class WAMGameCommons {
     var moleOffsetX = -13;
     var moleOffsetY = -12;
 
+    var moleBitmap, backdrop, holeCoordinates;
+
     var currentPosition;
 
-    var laps = 0;
-    var successLaps = 0;
-    var failedLaps = 0;
+    var laps, successLaps, failedLaps;
+    var stopped;
 
     var timer, finishTimer;
     var timeout = 1000;
     var finishTimeout = 15000;
 
-    var stopped = false;
+    function initialize() {
+        timer = new Timer.Timer();
+        finishTimer = new Timer.Timer();
+        laps = 0;
+        successLaps = 0;
+        failedLaps = 0;
+        stopped = false;
+    }
 
     function startFinishTimer() {
-        if (finishTimer == null) {
-            finishTimer = new Timer.Timer();
-        }
         finishTimer.start(self.method(:finishTimerCallback), finishTimeout, false);
     }
 
     function finishTimerCallback() {
-        System.println("Finished");
         stopped = true;
         timer.stop();
         Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, successLaps, Constants.MAX_HAPPY);
@@ -46,9 +46,6 @@ class WAMGameCommons extends Lang.Object {
     }
 
     function startTimer() {
-        if (timer == null) {
-            timer = new Timer.Timer();
-        }
         timer.start(self.method(:timerCallback), timeout, false);
     }
 
@@ -70,7 +67,6 @@ class WAMGameCommons extends Lang.Object {
 
     function resetPosition() {
         if (!stopped) {
-            System.println("Resetting, current laps: " + laps);
             stopTimer();
             currentPosition = Math.rand() % holeCoordinates.size();
             startTimer();
@@ -82,7 +78,6 @@ class WAMGameCommons extends Lang.Object {
         if (stopped) {
             return;
         }
-        System.println("Registering " + result);
         if (result) {
             successLaps += 1;
         } else {
@@ -91,16 +86,15 @@ class WAMGameCommons extends Lang.Object {
         laps += 1;
     }
 
-    function drawGame(moleBitmap, dc) {
-        // paint the sky
-        dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
-        dc.fillRectangle(0, 0, dc.getWidth(), dc.getHeight());
-        // paint the sun
-        dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_BLACK);
-        dc.fillCircle(150, 0, 25);
-        // paint the grass
-        dc.setColor(Graphics.COLOR_DK_GREEN, Graphics.COLOR_BLACK);
-        dc.fillEllipse(107, 140, 240, 100);
+    function loadResources() {
+        moleBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.mole});
+        backdrop = new Rez.Drawables.backdrop();
+        holeCoordinates = WatchUi.loadResource(Rez.JsonData.wamHoles);
+        System.println(holeCoordinates);
+    }
+
+    function drawGame(dc) {
+        backdrop.draw(dc);
 
         // paint the mole holes
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
@@ -119,34 +113,27 @@ class WAMGameCommons extends Lang.Object {
 
 class WAMGameView extends WatchUi.View {
 
-    var moleBitmap;
     var commons;
-    // indicators
     function initialize() {
         View.initialize();
         commons = new WAMGameCommons();
     }
 
-    // Load your resources here
     function onLayout(dc) {
-        moleBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.mole});
+        commons.loadResources();
     }
 
-    // Called when this View is brought to the foreground. Restore
-    // the state of this View and prepare it to be shown. This includes
-    // loading resources into memory.
     function onShow() {
         // start mole timer
         commons.startTimer();
         commons.startFinishTimer();
     }
 
-    // Update the view
     function onUpdate(dc) {
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
         dc.clear();
         if (!commons.stopped) {
-            commons.drawGame(moleBitmap, dc);
+            commons.drawGame(dc);
         } else {
             var font = Graphics.FONT_MEDIUM;
             var fontHeight = dc.getFontHeight(font);
@@ -163,9 +150,6 @@ class WAMGameView extends WatchUi.View {
         }
     }
 
-    // Called when this View is removed from the screen. Save the
-    // state of this View here. This includes freeing resources from
-    // memory.
     function onHide() {
         commons.laps = 0;
         commons.successLaps = 0;
