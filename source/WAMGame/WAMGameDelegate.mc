@@ -12,7 +12,7 @@ class WAMGameDelegate extends WatchUi.InputDelegate {
     }
 
     function onTap(clickEvent) {
-        if (!view.commons.stopped) {
+        if (!view.commons.stopped && view.commons.currentPosition >= 0) {
             var coordinates = clickEvent.getCoordinates();
             var currentPosition = view.commons.holeCoordinates[view.commons.currentPosition];
             var lowerX = currentPosition[0] - 20;
@@ -24,7 +24,6 @@ class WAMGameDelegate extends WatchUi.InputDelegate {
             } else {
                 view.commons.registerLap(false);
             }
-            view.commons.resetPosition();
         }
         return true;
     }

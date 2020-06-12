@@ -21,6 +21,7 @@ class WAMGameCommons {
     var stopped;
 
     var timer, finishTimer;
+    var timeBetweenMoles = 300;
     var timeout = 1000;
     var finishTimeout = 15000;
 
@@ -49,12 +50,12 @@ class WAMGameCommons {
         timer.start(self.method(:timerCallback), timeout, false);
     }
 
-    function stopTimer() {
-        timer.stop();
-    }
-
     function timerCallback() {
         registerLap(false);
+        timer.start(self.method(:betweenRendersTimerCallback), timeBetweenMoles, false);
+    }
+
+    function betweenRendersTimerCallback() {
         resetPosition();
     }
 
@@ -67,7 +68,6 @@ class WAMGameCommons {
 
     function resetPosition() {
         if (!stopped) {
-            stopTimer();
             currentPosition = Math.rand() % holeCoordinates.size();
             startTimer();
             WatchUi.requestUpdate();
@@ -83,14 +83,18 @@ class WAMGameCommons {
         } else {
             failedLaps += 1;
         }
+        timer.stop();
         laps += 1;
+        currentPosition = -1;
+        WatchUi.requestUpdate();
+        timer.start(self.method(:betweenRendersTimerCallback), timeBetweenMoles, false);
     }
 
     function loadResources() {
         moleBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.mole});
         backdrop = new Rez.Drawables.wam_backdrop();
         holeCoordinates = WatchUi.loadResource(Rez.JsonData.wamHoles);
-        System.println(holeCoordinates);
+        currentPosition = Math.rand() % holeCoordinates.size();
     }
 
     function drawGame(dc) {
