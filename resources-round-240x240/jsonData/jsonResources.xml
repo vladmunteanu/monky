@@ -1,0 +1,9 @@
+<jsonDataResources>
+    <jsonData id="wamHoles">
+        [
+        	[65, 100], [125, 100], [185, 100],
+        	[65, 140], [125, 140], [185, 140],
+        	[65, 180], [125, 180], [185, 180]
+    	]
+    </jsonData>
+</jsonDataResources>
