@@ -60,13 +60,16 @@ class MonkyView extends WatchUi.View {
             heartId = 1;
         }
 
-        heartBitmaps[heartId].setLocation(40, 50);
+        System.println("Screen width " + dc.getWidth() + " height " + dc.getHeight());
+        var maxWidth = dc.getWidth();
+        var maxHeight = dc.getHeight();
+        heartBitmaps[heartId].setLocation(40, maxWidth / 4);
         heartBitmaps[heartId].draw(dc);
 
-        foodBitmap.setLocation(100, 30);
+        foodBitmap.setLocation(maxWidth / 2 - foodBitmap.width / 2, 30);
         foodBitmap.draw(dc);
 
-        activitiesBitmap.setLocation(150, 50);
+        activitiesBitmap.setLocation(maxWidth - 40 - activitiesBitmap.width, maxWidth / 4 - foodBitmap.width / 2);
         activitiesBitmap.draw(dc);
     }
 

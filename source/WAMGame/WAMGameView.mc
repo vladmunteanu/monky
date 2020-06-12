@@ -88,7 +88,7 @@ class WAMGameCommons {
 
     function loadResources() {
         moleBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.mole});
-        backdrop = new Rez.Drawables.backdrop();
+        backdrop = new Rez.Drawables.wam_backdrop();
         holeCoordinates = WatchUi.loadResource(Rez.JsonData.wamHoles);
         System.println(holeCoordinates);
     }
