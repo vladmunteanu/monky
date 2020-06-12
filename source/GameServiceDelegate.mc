@@ -1,6 +1,8 @@
 using Toybox.Application;
 using Toybox.Background;
 using Toybox.System;
+using Toybox.Time;
+using Toybox.UserProfile;
 
 (:background)
 class GameServiceDelegate extends System.ServiceDelegate {
@@ -38,11 +40,28 @@ class GameServiceDelegate extends System.ServiceDelegate {
     function triggerNotification(gameState) {
         var currentTime = System.getTimer();
         var lastNotifiedAt = gameState.get(Constants.STATE_KEY_LAST_NOTIF);
+        // Skip notification if recently displayed
         if (
             lastNotifiedAt
             && (currentTime - lastNotifiedAt) / 1000 < Constants.NOTIFICATION_FREQUENCY
         ) {
             return gameState;
+        }
+
+        // Skip notification if during sleep time
+        var userProfile = UserProfile.getProfile();
+        if (userProfile.wakeTime != null && userProfile.wakeTime.value() != null) {
+            if (Time.now().value() < (Time.today().value() + userProfile.wakeTime.value())) {
+                return gameState;
+            }
+        }
+
+        // Skip notification if Do Not Disturb set
+        var deviceSettings = System.getDeviceSettings();
+        if (deviceSettings has :doNotDisturb) {
+            if (deviceSettings.doNotDisturb) {
+                return gameState;
+            }
         }
 
         var appName = "Monky";
