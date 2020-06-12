@@ -22,6 +22,11 @@ class ActivitiesMenuDelegate extends WatchUi.Menu2InputDelegate {
             var delegate =  null;
             WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
         }
+        else if (item.getId().equals(Constants.ACTIVITY_SIMON)) {
+            var view = new SimonGameView();
+            var delegate = new SimonGameDelegate(view);
+            WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
+        }
         else {
             WatchUi.requestUpdate();
         }

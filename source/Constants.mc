@@ -35,6 +35,7 @@ module Constants {
     const ACTIVITY_SWIPE = "swipe";
     const ACTIVITY_WAM = "wam";
     const ACTIVITY_BATH = "bath";
+    const ACTIVITY_SIMON = "simon";
 
     // state key constants
     const STATE_KEY = "game-state";
