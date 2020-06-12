@@ -72,7 +72,11 @@ class SimonGameCommons {
         // middle circle
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.fillCircle(maxX / 2, maxY / 2, 20);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        var textColor = Graphics.COLOR_WHITE;
+        if (simonsTurn) {
+            textColor = Graphics.COLOR_RED;
+        }
+        dc.setColor(textColor, Graphics.COLOR_BLACK);
         dc.drawText(maxX / 2, maxY / 2 - Graphics.getFontHeight(Graphics.FONT_SMALL) / 2, Graphics.FONT_SMALL, currentLevel, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
