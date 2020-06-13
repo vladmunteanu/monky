@@ -3,6 +3,14 @@ using Toybox.WatchUi;
 using Toybox.System;
 using Toybox.Timer;
 
+function pushFoodMenu() {
+    var customMenu = new WatchUi.Menu2({:title=>"Food Menu"});
+    customMenu.addItem(new WatchUi.MenuItem("Vegetables", null, Constants.FOOD_VEGETABLES, null));
+    customMenu.addItem(new WatchUi.MenuItem("Steak", null, Constants.FOOD_STEAK, null));
+    customMenu.addItem(new WatchUi.MenuItem("Cookie", null, Constants.FOOD_COOKIE, null));
+    WatchUi.pushView(customMenu, new FoodMenuDelegate(), WatchUi.SLIDE_DOWN);
+}
+
 
 class EatingProgressDelegate extends WatchUi.BehaviorDelegate {
     var timer, currentProgress, progressBar;
