@@ -64,18 +64,17 @@ class GameServiceDelegate extends System.ServiceDelegate {
             }
         }
 
-        var appName = "Monky";
         if (gameState.get(Constants.STATE_KEY_HAPPY) < Constants.NOTIFICATION_THRESHOLD) {
-            Background.requestApplicationWake(appName + " feels sad");
+            Background.requestApplicationWake("Monky feels sad");
         }
         else if (gameState.get(Constants.STATE_KEY_HEALTH) < Constants.NOTIFICATION_THRESHOLD) {
-            Background.requestApplicationWake(appName + " is feeling dizzy");
+            Background.requestApplicationWake("Monky is feeling dizzy");
         }
         else if (gameState.get(Constants.STATE_KEY_CLEAN) < Constants.NOTIFICATION_THRESHOLD) {
-            Background.requestApplicationWake(appName + " could use a bath!");
+            Background.requestApplicationWake("Monky could use a bath!");
         }
         else if (gameState.get(Constants.STATE_KEY_FIT) < Constants.NOTIFICATION_THRESHOLD) {
-            Background.requestApplicationWake(appName + " would really go for a walk!");
+            Background.requestApplicationWake("Monky would really go for a walk!");
         }
 
         gameState.put(Constants.STATE_KEY_LAST_NOTIF, currentTime);
