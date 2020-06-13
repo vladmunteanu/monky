@@ -14,6 +14,7 @@ class SwipeGameDelegate extends WatchUi.InputDelegate {
 	}
 	
 	function onKey(keyEvent) {
+		// When physically testing, vivoactive 4S sends a KEY event for slide right
 		if (keyEvent.getKey() == WatchUi.KEY_ESC) {
 			if (view.commons.stopped) {
 				WatchUi.popView(WatchUi.SLIDE_RIGHT);

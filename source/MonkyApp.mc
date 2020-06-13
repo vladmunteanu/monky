@@ -42,7 +42,6 @@ class MonkyApp extends Application.AppBase {
     // This method is called when data is returned from our
     // Background process.
     function onBackgroundData(data) {
-        System.println("Application got: " + data);
         if (data != null) {
             setGameState(data);
         }
