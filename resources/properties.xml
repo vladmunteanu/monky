@@ -1,0 +1,3 @@
+<properties>
+	<property id="notificationsEnabled" type="boolean">true</property>
+</properties>

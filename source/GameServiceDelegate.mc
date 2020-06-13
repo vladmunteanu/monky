@@ -40,6 +40,12 @@ class GameServiceDelegate extends System.ServiceDelegate {
     function triggerNotification(gameState) {
         var currentTime = System.getTimer();
         var lastNotifiedAt = gameState.get(Constants.STATE_KEY_LAST_NOTIF);
+        // Skip notification if disabled by user
+        var notificationsEnabled = Application.getApp().getProperty(Constants.NOTIFICATION_TOGGLE_PROP);
+        if (notificationsEnabled == false) {
+            return gameState;
+        }
+
         // Skip notification if recently displayed
         if (
             lastNotifiedAt

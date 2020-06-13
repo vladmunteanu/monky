@@ -50,4 +50,5 @@ module Constants {
 
     const NOTIFICATION_FREQUENCY = 60 * 60 * 3;
     const NOTIFICATION_THRESHOLD = 30;
+    const NOTIFICATION_TOGGLE_PROP = "notificationsEnabled";
 }

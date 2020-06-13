@@ -3,11 +3,11 @@ using Toybox.WatchUi;
 using Toybox.Application;
 
 
-class MonkyDelegate extends WatchUi.InputDelegate {
+class MonkyDelegate extends WatchUi.BehaviorDelegate {
 
     var view;
     function initialize(monkyView) {
-        WatchUi.InputDelegate.initialize();
+        WatchUi.BehaviorDelegate.initialize();
         view = monkyView;
     }
 
@@ -40,5 +40,10 @@ class MonkyDelegate extends WatchUi.InputDelegate {
             return true;
         }
         return false;
+    }
+
+    function onMenu() {
+        pushSettingsMenu();
+        return true;
     }
 }
