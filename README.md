@@ -40,15 +40,15 @@ Yes, "Monky" is inspired by Monkey C, the language used to write the game.
 Really looking forward to feedback and feature requests!
 
 # Screenshots:
-![Alt text](https://ibb.co/HCxYZvv)
-![Alt text](https://ibb.co/TPVDLw4)
-![Alt text](https://ibb.co/mBGpsmg)
-![Alt text](https://ibb.co/R0THfYj)
-![Alt text](https://ibb.co/YtNKjcB)
-![Alt text](https://ibb.co/z8RH2NT)
-![Alt text](https://ibb.co/vQVZqNn)
-![Alt text](https://ibb.co/chbS9sv)
-![Alt text](https://ibb.co/yYLtf8P)
-![Alt text](https://ibb.co/K72gzZL)
-![Alt text](https://ibb.co/vV6r4sC)
+![Monky front view](https://user-images.githubusercontent.com/7191745/84602028-26098000-ae8d-11ea-9aae-219e5ceae105.png)
+![Monky front view](https://user-images.githubusercontent.com/7191745/84602031-2efa5180-ae8d-11ea-95f6-9090220b76b3.png)
+![Monky side view](https://user-images.githubusercontent.com/7191745/84602035-37528c80-ae8d-11ea-9e82-b8e86eb49bc9.png)
+![Monky eating](https://user-images.githubusercontent.com/7191745/84602001-0a05de80-ae8d-11ea-869e-0833619dd228.png)
+![Monky food menu](https://user-images.githubusercontent.com/7191745/84602018-1d18ae80-ae8d-11ea-9af7-2ab6ff564321.png)
+![Monky activities menu](https://user-images.githubusercontent.com/7191745/84601988-e6db2f00-ae8c-11ea-825a-0e1a85acda01.png)
+![Monky bath](https://user-images.githubusercontent.com/7191745/84601998-fbb7c280-ae8c-11ea-9d3f-1d9c9b98d9f6.png)
+![Monky simon says](https://user-images.githubusercontent.com/7191745/84602046-4fc2a700-ae8d-11ea-8e2a-25d712a7c2be.png)
+![Monky whack a mole](https://user-images.githubusercontent.com/7191745/84602054-61a44a00-ae8d-11ea-8cad-1dcdccdf3b96.png)
+![Monky stats](https://user-images.githubusercontent.com/7191745/84602049-581ae200-ae8d-11ea-964d-2e6781e106c2.png)
+![Monky settings](https://user-images.githubusercontent.com/7191745/84602042-48030280-ae8d-11ea-8da6-3b8f4fc3bc52.png)
 
