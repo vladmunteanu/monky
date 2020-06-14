@@ -101,6 +101,8 @@ class GameServiceDelegate extends System.ServiceDelegate {
         gameState = decrGameStateItem(gameState, Constants.STATE_KEY_HAPPY, 5, Constants.MIN_HAPPY);
         // update clean
         gameState = decrGameStateItem(gameState, Constants.STATE_KEY_CLEAN, 1, Constants.MIN_CLEAN);
+        // update fit
+        gameState = decrGameStateItem(gameState, Constants.STATE_KEY_FIT, 1, Constants.MIN_FIT);
 
         gameState = triggerNotification(gameState);
         Background.exit(gameState);
