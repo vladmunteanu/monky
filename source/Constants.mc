@@ -36,6 +36,8 @@ module Constants {
     const ACTIVITY_WAM = "wam";
     const ACTIVITY_BATH = "bath";
     const ACTIVITY_SIMON = "simon";
+    const ACTIVITY_TTT = "tictactoe";
+    const ACTIVITY_TTTF = "tictactoe-friends";
 
     // state key constants
     const STATE_KEY = "game-state";

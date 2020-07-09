@@ -6,6 +6,7 @@ using Toybox.Graphics;
 using Toybox.Timer;
 using Toybox.Lang;
 
+
 class SimonGameCommons {
     var margin = 5;
 
