@@ -15,14 +15,16 @@ Being tied to you, Monky will be as fit as you are, by the way. If you find Monk
 - Garmin vivoactive 3
 - Garmin vivoactive 3 Music
 - Garmin vivoactive 3 Music LTE
-- Garmin vivoactive 4S
 - Garmin vivoactive 4
+- Garmin vivoactive 4S
 
 I've only physically tested the vivoactive 4S since it is the only one I own, so please feel free to open an issue if you have problems with any of the above.
 
 ### Activities
 - Simon
 - Whack a mole
+- TicTacToe
+- TicTacToe friends (multiplayer)
 - Swipe
 - Bath
 
