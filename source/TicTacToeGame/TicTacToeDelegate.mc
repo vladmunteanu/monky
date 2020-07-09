@@ -1,6 +1,4 @@
-using Toybox.System;
 using Toybox.WatchUi;
-using Toybox.Application;
 
 
 class TicTacToeDelegate extends WatchUi.InputDelegate {

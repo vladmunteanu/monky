@@ -6,6 +6,7 @@ using Toybox.Graphics;
 using Toybox.Timer;
 using Toybox.Lang;
 
+
 class SwipeGameCommons extends Lang.Object {
     var current_direction;
     var directionsToGesture = {

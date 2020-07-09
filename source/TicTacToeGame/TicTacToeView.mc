@@ -4,7 +4,6 @@ using Toybox.System;
 using Toybox.Math;
 using Toybox.Graphics;
 using Toybox.Timer;
-using Toybox.Lang;
 
 
 class TicTacToeCommons {
