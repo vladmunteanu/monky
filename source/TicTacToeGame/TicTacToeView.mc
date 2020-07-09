@@ -8,6 +8,8 @@ using Toybox.Lang;
 
 
 class TicTacToeCommons {
+    const WIN_XP_BONUS = 50;
+
     // game states
     const GAME_ONGOING = 1;
     const GAME_OVER = 2;
@@ -22,7 +24,7 @@ class TicTacToeCommons {
     var isXTurn, winningPath, displayWinningPath, timer;
 
     var maxHeight, maxWidth;
-    var sixteenPercent;
+    var borderWidth;
     var multiplayer;
 
     function initialize(mp) {
@@ -40,28 +42,28 @@ class TicTacToeCommons {
         maxHeight = dc.getHeight();
         maxWidth = dc.getWidth();
 
-        sixteenPercent = 30;
+        borderWidth = 30;
 
-        var cell00 = [[sixteenPercent, sixteenPercent], [maxWidth / 2 - sixteenPercent, maxHeight / 2 - sixteenPercent]];
-        var cell01 = [[maxWidth / 2 - sixteenPercent, sixteenPercent], [maxWidth / 2 + sixteenPercent, maxHeight / 2 - sixteenPercent]];
-        var cell02 = [[maxWidth / 2 + sixteenPercent, sixteenPercent], [maxWidth - sixteenPercent, maxHeight / 2 - sixteenPercent]];
+        var cell00 = [[borderWidth, borderWidth], [maxWidth / 2 - borderWidth, maxHeight / 2 - borderWidth]];
+        var cell01 = [[maxWidth / 2 - borderWidth, borderWidth], [maxWidth / 2 + borderWidth, maxHeight / 2 - borderWidth]];
+        var cell02 = [[maxWidth / 2 + borderWidth, borderWidth], [maxWidth - borderWidth, maxHeight / 2 - borderWidth]];
 
-        var cell10 = [[sixteenPercent, maxHeight / 2 - sixteenPercent], [maxWidth / 2 - sixteenPercent, maxHeight / 2 + sixteenPercent]];
-        var cell11 = [[maxWidth / 2 - sixteenPercent, maxHeight / 2 - sixteenPercent], [maxWidth / 2 + sixteenPercent, maxHeight / 2 + sixteenPercent]];
-        var cell12 = [[maxWidth / 2 + sixteenPercent, maxHeight / 2 - sixteenPercent], [maxWidth - sixteenPercent, maxHeight / 2 + sixteenPercent]];
+        var cell10 = [[borderWidth, maxHeight / 2 - borderWidth], [maxWidth / 2 - borderWidth, maxHeight / 2 + borderWidth]];
+        var cell11 = [[maxWidth / 2 - borderWidth, maxHeight / 2 - borderWidth], [maxWidth / 2 + borderWidth, maxHeight / 2 + borderWidth]];
+        var cell12 = [[maxWidth / 2 + borderWidth, maxHeight / 2 - borderWidth], [maxWidth - borderWidth, maxHeight / 2 + borderWidth]];
 
-        var cell20 = [[sixteenPercent, maxHeight / 2 + sixteenPercent], [maxWidth / 2 - sixteenPercent, maxHeight - sixteenPercent]];
-        var cell21 = [[maxWidth / 2 - sixteenPercent, maxHeight / 2 + sixteenPercent], [maxWidth / 2 + sixteenPercent, maxHeight - sixteenPercent]];
-        var cell22 = [[maxWidth / 2 + sixteenPercent, maxHeight / 2 + sixteenPercent], [maxWidth - sixteenPercent, maxHeight - sixteenPercent]];
+        var cell20 = [[borderWidth, maxHeight / 2 + borderWidth], [maxWidth / 2 - borderWidth, maxHeight - borderWidth]];
+        var cell21 = [[maxWidth / 2 - borderWidth, maxHeight / 2 + borderWidth], [maxWidth / 2 + borderWidth, maxHeight - borderWidth]];
+        var cell22 = [[maxWidth / 2 + borderWidth, maxHeight / 2 + borderWidth], [maxWidth - borderWidth, maxHeight - borderWidth]];
 
         boardCoordinates = [[cell00, cell01, cell02], [cell10, cell11, cell12], [cell20, cell21, cell22]];
     }
 
-    function getAvailableMoves() {
+    function getAvailableMoves(boardState) {
         var moves = [];
         for (var i = 0; i < 3; i++) {
             for (var j = 0; j < 3; j++) {
-                if (board[i][j] == null) {
+                if (boardState[i][j] == null) {
                     moves.add([i, j]);
                 }
             }
@@ -71,11 +73,56 @@ class TicTacToeCommons {
 
     function makeMove() {
         if (isXTurn || multiplayer) {
-            return;
+            return null;
         }
-        var availableMoves = getAvailableMoves();
-        var move = availableMoves[Math.rand() % availableMoves.size()];
-        saveMove(move[0], move[1]);
+
+        var bestMove = null;
+        var availableMoves = getAvailableMoves(board);
+        var numAvailableMoves = availableMoves.size();
+
+        if (numAvailableMoves == 0) {
+            return null;
+        }
+
+        // go through available moves
+        // place O, pick winning move if available
+        for (var i = 0; i < numAvailableMoves; i++) {
+            var move = availableMoves[i];
+            var initialVal = board[move[0]][move[1]];
+            board[move[0]][move[1]] = O_VALUE;
+            var currentState = getGameState(board);
+            // revert the board move
+            board[move[0]][move[1]] = initialVal;
+
+            if (currentState[0] == GAME_OVER) {
+                bestMove = move;
+                break;
+            }
+        }
+
+        // go through available moves
+        // place X, pick winning move if available and put O there
+        if (bestMove == null) {
+            for (var i = 0; i < numAvailableMoves; i++) {
+                var move = availableMoves[i];
+                var initialVal = board[move[0]][move[1]];
+                board[move[0]][move[1]] = X_VALUE;
+                var currentState = getGameState(board);
+                // revert the board move
+                board[move[0]][move[1]] = initialVal;
+
+                if (currentState[0] == GAME_OVER) {
+                    bestMove = move;
+                    break;
+                }
+            }
+        }
+        // otherwise get a random cell
+        if (bestMove == null) {
+            bestMove = availableMoves[Math.rand() % (numAvailableMoves - 1)];
+        }
+
+        saveMove(bestMove[0], bestMove[1]);
     }
 
     function saveMove(i, j) {
@@ -91,38 +138,42 @@ class TicTacToeCommons {
         // switch turns
         isXTurn = !isXTurn;
 
-        var stateAndPath = checkGameState();
-        if (stateAndPath[0] == GAME_OVER) {
-            winningPath = stateAndPath[1];
+        var gameState = getGameState(board);
+        if (gameState[0] == GAME_OVER) {
+            winningPath = gameState[1];
             displayWinningPath = true;
+            if (!isXTurn && !multiplayer) {
+                Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 20, Constants.MAX_HAPPY);
+                Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_XP, WIN_XP_BONUS, null);
+            }
         }
-        state = stateAndPath[0];
+        state = gameState[0];
         WatchUi.requestUpdate();
 
-        if (!isXTurn && !multiplayer) {
+        if (!isXTurn && !multiplayer && gameState[0] == GAME_ONGOING) {
             // start the timer for an AI move after 500 ms
             timer.start(self.method(:makeMove), 500, false);
         }
     }
 
-    function checkGameState() {
-        if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && board[0][0] != null) {
+    function getGameState(boardState) {
+        if (boardState[0][0] != null && boardState[0][0] == boardState[0][1] && boardState[0][1] == boardState[0][2]) {
             return [GAME_OVER, [boardCoordinates[0][0], boardCoordinates[0][1], boardCoordinates[0][2]]];
-        } else if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && board[1][0] != null) {
+        } else if (boardState[1][0] != null && boardState[1][0] == boardState[1][1] && boardState[1][1] == boardState[1][2]) {
             return [GAME_OVER, [boardCoordinates[1][0], boardCoordinates[1][1], boardCoordinates[1][2]]];
-        } else if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && board[2][0] != null) {
+        } else if (boardState[2][0] != null && boardState[2][0] == boardState[2][1] && boardState[2][1] == boardState[2][2]) {
             return [GAME_OVER, [boardCoordinates[2][0], boardCoordinates[2][1], boardCoordinates[2][2]]];
-        } else if (board[0][0] == board[1][0] && board[1][0] == board[2][0] && board[0][0] != null) {
+        } else if (boardState[0][0] != null && boardState[0][0] == boardState[1][0] && boardState[1][0] == boardState[2][0]) {
             return [GAME_OVER, [boardCoordinates[0][0], boardCoordinates[1][0], boardCoordinates[2][0]]];
-        } else if (board[0][1] == board[1][1] && board[1][1] == board[2][1] && board[0][1] != null) {
+        } else if (boardState[0][1] != null && boardState[0][1] == boardState[1][1] && boardState[1][1] == boardState[2][1]) {
             return [GAME_OVER, [boardCoordinates[0][1], boardCoordinates[1][1], boardCoordinates[2][1]]];
-        } else if (board[0][2] == board[1][2] && board[1][2] == board[2][2] && board[0][2] != null) {
+        } else if (boardState[0][2] != null && boardState[0][2] == boardState[1][2] && boardState[1][2] == boardState[2][2]) {
             return [GAME_OVER, [boardCoordinates[0][2], boardCoordinates[1][2], boardCoordinates[2][2]]];
-        } else if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != null) {
+        } else if (boardState[0][0] != null && boardState[0][0] == boardState[1][1] && boardState[1][1] == boardState[2][2]) {
             return [GAME_OVER, [boardCoordinates[0][0], boardCoordinates[1][1], boardCoordinates[2][2]]];
-        } else if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != null) {
+        } else if (boardState[0][2] != null && boardState[0][2] == boardState[1][1] && boardState[1][1] == boardState[2][0]) {
             return [GAME_OVER, [boardCoordinates[0][2], boardCoordinates[1][1], boardCoordinates[2][0]]];
-        } else if (getAvailableMoves().size() == 0) {
+        } else if (getAvailableMoves(boardState).size() == 0) {
             return [GAME_TIED, null];
         } else {
             return [GAME_ONGOING, null];
@@ -136,12 +187,12 @@ class TicTacToeCommons {
         // draw the board
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         // vertical lines
-        dc.drawLine(maxWidth / 2 - sixteenPercent, sixteenPercent, maxWidth / 2 - sixteenPercent, maxHeight - sixteenPercent);
-        dc.drawLine(maxWidth / 2 + sixteenPercent, sixteenPercent, maxWidth / 2 + sixteenPercent, maxHeight - sixteenPercent);
+        dc.drawLine(maxWidth / 2 - borderWidth, borderWidth, maxWidth / 2 - borderWidth, maxHeight - borderWidth);
+        dc.drawLine(maxWidth / 2 + borderWidth, borderWidth, maxWidth / 2 + borderWidth, maxHeight - borderWidth);
 
         // horizontal lines
-        dc.drawLine(sixteenPercent, maxHeight / 2 - sixteenPercent, maxWidth - sixteenPercent, maxHeight / 2 - sixteenPercent);
-        dc.drawLine(sixteenPercent, maxHeight / 2 + sixteenPercent, maxWidth - sixteenPercent, maxHeight / 2 + sixteenPercent);
+        dc.drawLine(borderWidth, maxHeight / 2 - borderWidth, maxWidth - borderWidth, maxHeight / 2 - borderWidth);
+        dc.drawLine(borderWidth, maxHeight / 2 + borderWidth, maxWidth - borderWidth, maxHeight / 2 + borderWidth);
 
         // draw checked items
         for (var i = 0; i < 3; i++) {
@@ -191,10 +242,9 @@ class TicTacToeCommons {
         if (!isXTurn && !multiplayer) {
             return;
         }
-        var availableMoves = getAvailableMoves();
+        var availableMoves = getAvailableMoves(board);
 
         var chosenMove = null;
-
         for (var i = 0; i < 3; i++) {
             for (var j = 0; j < 3; j++) {
                 var cellCoordinates = boardCoordinates[i][j];
@@ -248,19 +298,25 @@ class TicTacToeView extends WatchUi.View {
             var textX = dc.getWidth() / 2;
             var textY = dc.getHeight() / 2;
             var resultText = "Game over!";
+            var otherText = "";
             dc.drawText(textX, textY - 2 * fontHeight, font, resultText, Graphics.TEXT_JUSTIFY_CENTER );
             if (commons.state == commons.GAME_OVER) {
                 if (commons.isXTurn) {
                     resultText = "O";
                 }
-                else {
+                else if (commons.multiplayer) {
                     resultText = "X";
+                }
+                else {
+                    resultText = "You";
+                    otherText += "+" + commons.WIN_XP_BONUS + "xp";
                 }
                 resultText += " won";
             } else if (commons.state == commons.GAME_TIED) {
                 resultText = "- tie -";
             }
             dc.drawText(textX, textY - 1 * fontHeight, font, resultText, Graphics.TEXT_JUSTIFY_CENTER );
+            dc.drawText(textX, textY, font, otherText, Graphics.TEXT_JUSTIFY_CENTER );
         }
     }
 
