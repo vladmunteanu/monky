@@ -37,11 +37,13 @@ class TicTacToeCommons {
         multiplayer = mp;
     }
 
+    function loadResources() {
+        borderWidth = WatchUi.loadResource(Rez.JsonData.tttBorderWidth);
+    }
+
     function setupLayout(dc) {
         maxHeight = dc.getHeight();
         maxWidth = dc.getWidth();
-
-        borderWidth = 30;
 
         var cell00 = [[borderWidth, borderWidth], [maxWidth / 2 - borderWidth, maxHeight / 2 - borderWidth]];
         var cell01 = [[maxWidth / 2 - borderWidth, borderWidth], [maxWidth / 2 + borderWidth, maxHeight / 2 - borderWidth]];
@@ -277,6 +279,7 @@ class TicTacToeView extends WatchUi.View {
     }
 
     function onLayout(dc) {
+        commons.loadResources();
         commons.setupLayout(dc);
     }
 

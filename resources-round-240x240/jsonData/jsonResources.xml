@@ -12,4 +12,7 @@
 	<jsonData id="wamMoleOffsets">
 		[-13, -12]
 	</jsonData>
+	<jsonData id="tttBorderWidth">
+		30
+	</jsonData>
 </jsonDataResources>
