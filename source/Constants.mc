@@ -30,7 +30,8 @@ module Constants {
 
     const FOOD_VEGETABLES = "vegetables";
     const FOOD_STEAK = "steak";
-    const FOOD_COOKIE = "cookie";
+    const FOOD_PIZZA = "pizza";
+    const FOOD_CAKE = "cake";
 
     const ACTIVITY_SWIPE = "swipe";
     const ACTIVITY_WAM = "wam";

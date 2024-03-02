@@ -18,4 +18,10 @@
     <bitmap id="broken_heart" filename="images/broken_heart.png"/>
     <bitmap id="mole" filename="images/mole.png"/>
     <bitmap id="bath_tub" filename="images/bath_tub.png"/>
+    <bitmap id="food_cake" filename="images/food_cake_small.png"/>
+    <bitmap id="food_pizza" filename="images/food_pizza_small.png"/>
+    <bitmap id="food_steak" filename="images/food_steak_small.png"/>
+    <bitmap id="food_veggie1" filename="images/food_veggie1.png"/>
+    <bitmap id="food_veggie2" filename="images/food_veggie2.png"/>
+    <bitmap id="food_veggie3" filename="images/food_veggie3.png"/>
 </resources>

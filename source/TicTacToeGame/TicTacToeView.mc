@@ -200,7 +200,6 @@ class TicTacToeCommons {
             for (var j = 0; j < 3; j++) {
                 var font = Graphics.FONT_LARGE;
                 var cellCoordinates = boardCoordinates[i][j];
-                var border = 10;
                 var cellText = "";
                 var textX = (cellCoordinates[1][0] - cellCoordinates[0][0]) / 2 + cellCoordinates[0][0];
                 var textY = (cellCoordinates[1][1] - cellCoordinates[0][1]) / 2 + cellCoordinates[0][1] - dc.getFontHeight(font) / 2;

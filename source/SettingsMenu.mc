@@ -52,7 +52,7 @@ class ResetSettingsDelegate extends WatchUi.ConfirmationDelegate {
     function onResponse(response) {
         if (response == WatchUi.CONFIRM_YES) {
             var app = Application.getApp();
-            var currentState = app.setGameState(app.getInitialState());
+            app.setGameState(app.getInitialState());
         }
     }
 }

@@ -86,9 +86,6 @@ class BubbleBathView extends WatchUi.View {
     }
 
     function drawBubble(dc, x, y, initialRadius) {
-        var maxX = dc.getWidth();
-        var maxY = dc.getHeight();
-
         var bubbleXOffset = (Math.rand() % 3) * (animationStep % 5);
         if (animationStep % 2 == 0) {
             bubbleXOffset = bubbleXOffset * (-1);
