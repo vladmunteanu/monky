@@ -10,10 +10,7 @@ const WAM_NUM_HOLES = 12;
 
 
 class WAMGameCommons {
-    var moleOffsetX = -13;
-    var moleOffsetY = -12;
-
-    var moleBitmap, backdrop, holeCoordinates;
+    var moleBitmap, backdrop, holeCoordinates, holeDimensions, moleOffsets;
 
     var currentPosition;
 
@@ -84,6 +81,7 @@ class WAMGameCommons {
             failedLaps += 1;
         }
         timer.stop();
+
         laps += 1;
         currentPosition = -1;
         WatchUi.requestUpdate();
@@ -94,6 +92,8 @@ class WAMGameCommons {
         moleBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.mole});
         backdrop = new Rez.Drawables.wam_backdrop();
         holeCoordinates = WatchUi.loadResource(Rez.JsonData.wamHoles);
+        holeDimensions = WatchUi.loadResource(Rez.JsonData.wamHolesDimensions);
+        moleOffsets = WatchUi.loadResource(Rez.JsonData.wamMoleOffsets);
         currentPosition = Math.rand() % holeCoordinates.size();
     }
 
@@ -105,10 +105,10 @@ class WAMGameCommons {
         for (var i = 0; i < holeCoordinates.size(); i++) {
             var currentCoordinates = holeCoordinates[i];
             if (i == currentPosition) {
-                moleBitmap.setLocation(currentCoordinates[0] + moleOffsetX, currentCoordinates[1] + moleOffsetY);
+                moleBitmap.setLocation(currentCoordinates[0] + moleOffsets[0], currentCoordinates[1] + moleOffsets[1]);
                 moleBitmap.draw(dc);
             } else {
-                dc.fillEllipse(currentCoordinates[0], currentCoordinates[1], 15, 10);
+                dc.fillEllipse(currentCoordinates[0], currentCoordinates[1], holeDimensions[0], holeDimensions[1]);
             }
         }
     }

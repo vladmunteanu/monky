@@ -1,0 +1,4 @@
+<drawable-list id="wam_backdrop" background="Graphics.COLOR_BLUE">
+	<shape type="ellipse" x="center" y="250" a="350" b="180" color="Graphics.COLOR_DK_GREEN" />
+	<shape type="circle" x="250" y="0" radius="35" color="Graphics.COLOR_YELLOW" />    
+</drawable-list>

@@ -6,4 +6,10 @@
         	[45, 160], [105, 160], [165, 160]
     	]
     </jsonData>
+	<jsonData id="wamHolesDimensions">
+		[15, 10]
+	</jsonData>
+	<jsonData id="wamMoleOffsets">
+		[-13, -12]
+	</jsonData>
 </jsonDataResources>
