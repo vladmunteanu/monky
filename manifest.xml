@@ -3,6 +3,9 @@
 <iq:manifest xmlns:iq="http://www.garmin.com/xml/connectiq" version="3">
     <iq:application entry="MonkyApp" id="faaafa5f02144d648aa366422ffffed2" launcherIcon="@Drawables.LauncherIcon" minSdkVersion="3.1.0" name="@Strings.AppName" type="watch-app" version="1.1.1">
         <iq:products>
+            <iq:product id="venu3"/>
+            <iq:product id="venu3s"/>
+            <iq:product id="vivoactive3"/>
             <iq:product id="vivoactive4"/>
             <iq:product id="vivoactive4s"/>
             <iq:product id="vivoactive5"/>

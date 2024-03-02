@@ -15,4 +15,13 @@
 	<jsonData id="tttBorderWidth">
 		30
 	</jsonData>
+	<jsonData id="heartIconPosition">
+		[38, 55]
+	</jsonData>
+	<jsonData id="foodIconPosition">
+		[100, 32]
+	</jsonData>
+	<jsonData id="activitiesIconPosition">
+		[165, 50]
+	</jsonData>
 </jsonDataResources>

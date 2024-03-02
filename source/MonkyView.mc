@@ -8,7 +8,7 @@ using Toybox.Graphics;
 class MonkyView extends WatchUi.View {
 
     // indicators
-    var heartBitmaps, activitiesBitmap, foodBitmap;
+    var heartBitmaps, activitiesBitmap, foodBitmap, heartIconPosition, foodIconPosition, activitiesIconPosition;
     var heartId;
 
     var font = Graphics.FONT_TINY;
@@ -37,6 +37,10 @@ class MonkyView extends WatchUi.View {
 
         activitiesBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.scooter});
         foodBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.cake});
+        // icon positions
+        heartIconPosition = WatchUi.loadResource(Rez.JsonData.heartIconPosition);
+        foodIconPosition = WatchUi.loadResource(Rez.JsonData.foodIconPosition);
+        activitiesIconPosition = WatchUi.loadResource(Rez.JsonData.activitiesIconPosition);
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -60,15 +64,13 @@ class MonkyView extends WatchUi.View {
             heartId = 1;
         }
 
-        var maxWidth = dc.getWidth();
-        var maxHeight = dc.getHeight();
-        heartBitmaps[heartId].setLocation(40, maxWidth / 4);
+        heartBitmaps[heartId].setLocation(heartIconPosition[0], heartIconPosition[1]);
         heartBitmaps[heartId].draw(dc);
 
-        foodBitmap.setLocation(maxWidth / 2 - foodBitmap.width / 2, 30);
+        foodBitmap.setLocation(foodIconPosition[0], foodIconPosition[1]);
         foodBitmap.draw(dc);
 
-        activitiesBitmap.setLocation(maxWidth - 40 - activitiesBitmap.width, maxWidth / 4 - foodBitmap.width / 2);
+        activitiesBitmap.setLocation(activitiesIconPosition[0], activitiesIconPosition[1]);
         activitiesBitmap.draw(dc);
     }
 
