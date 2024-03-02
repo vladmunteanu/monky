@@ -15,10 +15,10 @@ class WAMGameDelegate extends WatchUi.InputDelegate {
         if (!view.commons.stopped && view.commons.currentPosition >= 0) {
             var coordinates = clickEvent.getCoordinates();
             var currentPosition = view.commons.holeCoordinates[view.commons.currentPosition];
-            var lowerX = currentPosition[0] - 20;
-            var upperX = currentPosition[0] + 20;
-            var lowerY = currentPosition[1] - 20;
-            var upperY = currentPosition[1] + 20;
+            var lowerX = currentPosition[0] - view.commons.holeDimensions[0] - 5;
+            var upperX = currentPosition[0] + view.commons.holeDimensions[0] + 5;
+            var lowerY = currentPosition[1] - view.commons.holeDimensions[1] - 5;
+            var upperY = currentPosition[1] + view.commons.holeDimensions[1] + 5;
             if (coordinates[0] >= lowerX && coordinates[0] <= upperX && coordinates[1] >= lowerY && coordinates[1] <= upperY) {
                 view.commons.registerLap(true);
             } else {
