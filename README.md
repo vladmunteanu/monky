@@ -21,6 +21,7 @@ Being tied to you, Monky will be as fit as you are, by the way. If you find Monk
 I've only physically tested the vivoactive 4S since it is the only one I own, so please feel free to open an issue if you have problems with any of the above.
 
 ### Activities
+- Matching
 - Simon
 - Whack a mole
 - TicTacToe
