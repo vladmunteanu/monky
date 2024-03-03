@@ -6,8 +6,6 @@ using Toybox.Graphics;
 using Toybox.Timer;
 using Toybox.Lang;
 
-const WAM_NUM_HOLES = 12;
-
 
 class WAMGameCommons {
     var moleBitmap, backdrop, holeCoordinates, holeDimensions, moleOffsets;
