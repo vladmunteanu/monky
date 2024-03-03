@@ -16,7 +16,7 @@ class GameCharacterRepresentation {
     var initialX, xPos;
     var initialY, yPos;
 
-    var bitmaps;
+    var bitmaps, animationStep;
     var timer;
 
     function initialize() {
@@ -30,6 +30,7 @@ class GameCharacterRepresentation {
     }
 
     function loadResources(dc) {
+        animationStep = WatchUi.loadResource(Rez.JsonData.monkyAnimationStep);
         bitmaps[0] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.monky1});
         bitmaps[1] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.monky2});
         bitmaps[2] = new WatchUi.Bitmap({:rezId=>Rez.Drawables.monky3});
@@ -88,10 +89,10 @@ class GameCharacterRepresentation {
             currentOffset = currentPosition % 3;
         }
         if (currentDirection == leftDirection) {
-            xPos = xPos - (currentOffset * 10);
+            xPos = xPos - (currentOffset * animationStep);
         }
         else if (currentDirection == rightDirection) {
-            xPos = xPos + (currentOffset * 10);
+            xPos = xPos + (currentOffset * animationStep);
         }
         bitmaps[currentPosition].setLocation(xPos, yPos);
         bitmaps[currentPosition].draw(dc);

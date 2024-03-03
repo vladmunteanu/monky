@@ -1,4 +1,7 @@
 <jsonDataResources>
+	<jsonData id="monkyAnimationStep">
+		10
+	</jsonData>
     <jsonData id="wamHoles">
         [
         	[45, 80], [105, 80], [165, 80],
