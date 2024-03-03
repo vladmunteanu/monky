@@ -2,6 +2,9 @@
 	<jsonData id="monkyAnimationStep">
 		25
 	</jsonData>
+	<jsonData id="bathAnimationHeight">
+		20
+	</jsonData>
     <jsonData id="wamHoles">
         [
         	[85, 165], [227, 165], [365, 165],

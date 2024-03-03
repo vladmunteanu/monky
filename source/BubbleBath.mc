@@ -9,7 +9,7 @@ using Toybox.Lang;
 
 class BubbleBathView extends WatchUi.View {
 
-    var bathTubBitmap;
+    var bathTubBitmap, monkyBitmap, animationHeight;
     var animationStep;
     var animationTimer;
     var startTime;
@@ -32,6 +32,8 @@ class BubbleBathView extends WatchUi.View {
 
     function onLayout(dc) {
         bathTubBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.bath_tub});
+        monkyBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.monky1});
+        animationHeight = WatchUi.loadResource(Rez.JsonData.bathAnimationHeight);
     }
 
     function onShow() {
@@ -48,6 +50,10 @@ class BubbleBathView extends WatchUi.View {
         // paint the wall
         dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_BLACK);
         dc.fillRectangle(0, 0, maxX, maxY);
+
+        // paint Monky in the bath tub
+        monkyBitmap.setLocation(maxX / 2 - monkyBitmap.width, maxY / 2 - monkyBitmap.height / 2 - monkyBitmap.height / 4.5);
+        monkyBitmap.draw(dc);
 
         // paint the floor
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
@@ -90,7 +96,7 @@ class BubbleBathView extends WatchUi.View {
         if (animationStep % 2 == 0) {
             bubbleXOffset = bubbleXOffset * (-1);
         }
-        var bubbleYOffset = 5 * animationStep - Math.rand() % 10;
+        var bubbleYOffset = animationHeight * animationStep - Math.rand() % 10;
         var bubbleX = x + bubbleXOffset;
         var bubbleY = y - bubbleYOffset;
 
