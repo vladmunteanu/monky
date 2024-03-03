@@ -1,7 +1,8 @@
 using Toybox.WatchUi;
 
 function pushActivitiesMenu() {
-    var customMenu = new WatchUi.Menu2({:title=>"Activities Menu"});
+    var customMenu = new WatchUi.Menu2({:title=>"Activities"});
+    customMenu.addItem(new WatchUi.MenuItem("Matching", null, Constants.ACTIVITY_MATCHING, null));
     customMenu.addItem(new WatchUi.MenuItem("Simon says", null, Constants.ACTIVITY_SIMON, null));
     customMenu.addItem(new WatchUi.MenuItem("Whack that mole!", null, Constants.ACTIVITY_WAM, null));
     customMenu.addItem(new WatchUi.MenuItem("TicTacToe", null, Constants.ACTIVITY_TTT, null));
@@ -48,6 +49,10 @@ class ActivitiesMenuDelegate extends WatchUi.Menu2InputDelegate {
             var multiplayer = true;
             var view = new TicTacToeView(multiplayer);
             var delegate = new TicTacToeDelegate(view);
+            WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
+        } else if (item.getId().equals(Constants.ACTIVITY_MATCHING)) {
+            var view = new MatchingGameView();
+            var delegate = new MatchingGameDelegate(view);
             WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
         }
         else {

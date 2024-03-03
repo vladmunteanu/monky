@@ -32,4 +32,7 @@
         	[40, 150], [100, 150], [165, 150]
     	]
     </jsonData>
+	<jsonData id="mgHideDetails">
+		[15, 10, 15]
+	</jsonData>
 </jsonDataResources>

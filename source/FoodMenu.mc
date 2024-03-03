@@ -4,7 +4,7 @@ using Toybox.System;
 using Toybox.Timer;
 
 function pushFoodMenu() {
-    var customMenu = new WatchUi.Menu2({:title=>"Food Menu"});
+    var customMenu = new WatchUi.Menu2({:title=>"Food"});
     customMenu.addItem(new WatchUi.MenuItem("Vegetables", null, Constants.FOOD_VEGETABLES, null));
     customMenu.addItem(new WatchUi.MenuItem("Steak", null, Constants.FOOD_STEAK, null));
     customMenu.addItem(new WatchUi.MenuItem("Pizza", null, Constants.FOOD_PIZZA, null));
