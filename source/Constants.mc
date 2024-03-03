@@ -39,6 +39,7 @@ module Constants {
     const ACTIVITY_SIMON = "simon";
     const ACTIVITY_TTT = "tictactoe";
     const ACTIVITY_TTTF = "tictactoe-friends";
+    const ACTIVITY_MATCHING = "matching";
 
     // state key constants
     const STATE_KEY = "game-state";

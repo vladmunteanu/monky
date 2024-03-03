@@ -38,21 +38,25 @@ class FoodView extends WatchUi.View {
     }
 
     function onShow() {
-        startTimer();
+        startTimer(1000);
     }
 
-    function startTimer() {
-        timer.start(self.method(:timerCallback), 1000, true);
+    function startTimer(timerDuration) {
+        timer.start(self.method(:timerCallback), timerDuration, true);
     }
 
     function timerCallback() {
         currentProgress += 25;
-        if (currentProgress > 100) {
+        if (currentProgress > 125) {
             timer.stop();
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
         }
         WatchUi.requestUpdate();
-        startTimer();
+        var td = 1000;
+        if (currentProgress == 100) {
+            td = 500;
+        }
+        startTimer(td);
     }
 
     function onUpdate(dc) {
@@ -65,15 +69,19 @@ class FoodView extends WatchUi.View {
             dc.clear();
             foodBitmap.setLocation(maxWidth / 2 - bitmapSize[0] / 2, maxHeight / 2 - bitmapSize[1] / 2);
             foodBitmap.draw(dc);
-        }
-        if (currentProgress == 25) {
-            dc.fillCircle(maxWidth / 2 - bitmapSize[0] / 4, maxHeight / 2 + bitmapSize[1] / 4, bitmapSize[1] / 3.5);
+        } else if (currentProgress == 25) {
+            dc.fillCircle(maxWidth / 2 - bitmapSize[0] / 4 - 5, maxHeight / 2 + bitmapSize[1] / 4 + 5, bitmapSize[1] / 3.5);
         } else if (currentProgress == 50) {
             dc.fillCircle(maxWidth / 2 + bitmapSize[0] / 4, maxHeight / 2 - bitmapSize[1] / 4, bitmapSize[1] / 3);
         } else if (currentProgress == 75) {
             dc.fillCircle(maxWidth / 2 + bitmapSize[0] / 4, maxHeight / 2 + bitmapSize[1] / 4, bitmapSize[1] / 2);
         } else if (currentProgress == 100) {
             dc.fillCircle(maxWidth / 2 - bitmapSize[0] / 4, maxHeight / 2 - bitmapSize[1] / 4, bitmapSize[1]);
+        } else {
+            dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
+            var font = Graphics.FONT_MEDIUM;
+            var fontHeight = dc.getFontHeight(font);
+            dc.drawText(maxWidth / 2, maxHeight / 2 - fontHeight / 2, font, "Yummy!", Graphics.TEXT_JUSTIFY_CENTER );
         }
     }
 

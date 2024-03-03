@@ -24,4 +24,12 @@
 	<jsonData id="activitiesIconPosition">
 		[210, 58]
 	</jsonData>
+	<jsonData id="mgPositions">
+        [
+			[75, 70], [185, 70], [300, 70],
+        	[75, 150], [185, 150], [300, 150],
+        	[75, 230], [185, 230], [300, 230],
+        	[75, 320], [185, 320], [300, 320]
+    	]
+    </jsonData>
 </jsonDataResources>
