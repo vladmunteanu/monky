@@ -50,6 +50,7 @@ class FoodView extends WatchUi.View {
         if (currentProgress > 125) {
             timer.stop();
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+            return;
         }
         WatchUi.requestUpdate();
         var td = 1000;
@@ -61,23 +62,26 @@ class FoodView extends WatchUi.View {
 
     function onUpdate(dc) {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        dc.clear();
         var maxHeight = dc.getHeight();
         var maxWidth = dc.getWidth();
         var bitmapSize = [foodBitmap.width, foodBitmap.height];
 
-        if (currentProgress == 0) {
-            dc.clear();
-            foodBitmap.setLocation(maxWidth / 2 - bitmapSize[0] / 2, maxHeight / 2 - bitmapSize[1] / 2);
-            foodBitmap.draw(dc);
-        } else if (currentProgress == 25) {
+        foodBitmap.setLocation(maxWidth / 2 - bitmapSize[0] / 2, maxHeight / 2 - bitmapSize[1] / 2);
+        foodBitmap.draw(dc);
+        if (currentProgress >= 25) {
             dc.fillCircle(maxWidth / 2 - bitmapSize[0] / 4 - 5, maxHeight / 2 + bitmapSize[1] / 4 + 5, bitmapSize[1] / 3.5);
-        } else if (currentProgress == 50) {
+        }
+        if (currentProgress >= 50) {
             dc.fillCircle(maxWidth / 2 + bitmapSize[0] / 4, maxHeight / 2 - bitmapSize[1] / 4, bitmapSize[1] / 3);
-        } else if (currentProgress == 75) {
+        }
+        if (currentProgress >= 75) {
             dc.fillCircle(maxWidth / 2 + bitmapSize[0] / 4, maxHeight / 2 + bitmapSize[1] / 4, bitmapSize[1] / 2);
-        } else if (currentProgress == 100) {
+        }
+        if (currentProgress >= 100) {
             dc.fillCircle(maxWidth / 2 - bitmapSize[0] / 4, maxHeight / 2 - bitmapSize[1] / 4, bitmapSize[1]);
-        } else {
+        }
+        if (currentProgress >= 125) {
             dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
             var font = Graphics.FONT_MEDIUM;
             var fontHeight = dc.getFontHeight(font);
