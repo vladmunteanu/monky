@@ -12,11 +12,15 @@ However, this also means it gets tired, hungry and dirty as the day progresses. 
 Being tied to you, Monky will be as fit as you are, by the way. If you find Monky to be out of shape, you probably haven't moved that much.
 
 ## Supported devices:
-- Garmin vivoactive 3
-- Garmin vivoactive 3 Music
-- Garmin vivoactive 3 Music LTE
-- Garmin vivoactive 4
-- Garmin vivoactive 4S
+- vivoactive 3
+- vivoactive 4
+- vivoactive 4S
+- vivoactive 5
+- Venu 3
+- Venu 3S
+- epix Pro gen 2
+- fenix 7
+- fenix 8
 
 I've only physically tested the vivoactive 4S since it is the only one I own, so please feel free to open an issue if you have problems with any of the above.
 
