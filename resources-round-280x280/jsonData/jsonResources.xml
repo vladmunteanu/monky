@@ -1,44 +1,44 @@
 <jsonDataResources>
 	<jsonData id="monkyAnimationStep">
-		25
+		10
 	</jsonData>
 	<jsonData id="bathAnimationHeight">
-		20
+		5
 	</jsonData>
     <jsonData id="wamHoles">
         [
-        	[85, 165], [227, 165], [365, 165],
-        	[85, 240], [227, 240], [365, 240],
-        	[85, 315], [227, 315], [365, 315]
+        	[55, 100], [135, 100], [215, 100],
+        	[55, 150], [135, 150], [215, 150],
+        	[55, 200], [135, 200], [215, 200]
     	]
     </jsonData>
 	<jsonData id="wamHolesDimensions">
-		[40, 30]
+		[15, 10]
 	</jsonData>
 	<jsonData id="wamMoleOffsets">
-		[-40, -30]
+		[-13, -12]
 	</jsonData>
 	<jsonData id="tttBorderWidth">
-		60
+		40
 	</jsonData>
 	<jsonData id="heartIconPosition">
-		[50, 100]
+		[35, 60]
 	</jsonData>
 	<jsonData id="foodIconPosition">
-		[190, 25]
+		[120, 25]
 	</jsonData>
 	<jsonData id="activitiesIconPosition">
-		[335, 85]
+		[210, 58]
 	</jsonData>
 	<jsonData id="mgPositions">
         [
-			[190, 30],
-        	[50, 120], [190, 120], [330, 120],
-        	[50, 210], [190, 210], [330, 210],
-        	[50, 300], [190, 300], [330, 300]
+			[120, 40],
+        	[40, 90], [120, 90], [200, 90],
+        	[40, 140], [120, 140], [200, 140],
+        	[40, 190], [120, 190], [200, 190]
     	]
     </jsonData>
 	<jsonData id="mgHideDetails">
-		[35, 25, 30]
+		[15, 10, 15]
 	</jsonData>
 </jsonDataResources>

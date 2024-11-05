@@ -7,9 +7,9 @@
 	</jsonData>
     <jsonData id="wamHoles">
         [
-        	[85, 165], [227, 165], [365, 165],
-        	[85, 240], [227, 240], [365, 240],
-        	[85, 315], [227, 315], [365, 315]
+        	[90, 150], [205, 150], [320, 150],
+        	[90, 230], [205, 230], [320, 230],
+        	[90, 310], [205, 310], [320, 310]
     	]
     </jsonData>
 	<jsonData id="wamHolesDimensions">
@@ -19,23 +19,23 @@
 		[-40, -30]
 	</jsonData>
 	<jsonData id="tttBorderWidth">
-		60
+		50
 	</jsonData>
 	<jsonData id="heartIconPosition">
-		[50, 100]
+		[50, 90]
 	</jsonData>
 	<jsonData id="foodIconPosition">
-		[190, 25]
+		[170, 25]
 	</jsonData>
 	<jsonData id="activitiesIconPosition">
-		[335, 85]
+		[300, 85]
 	</jsonData>
 	<jsonData id="mgPositions">
         [
-			[190, 30],
-        	[50, 120], [190, 120], [330, 120],
-        	[50, 210], [190, 210], [330, 210],
-        	[50, 300], [190, 300], [330, 300]
+			[175, 20],
+        	[60, 110], [175, 110], [290, 110],
+        	[60, 200], [175, 200], [290, 200],
+        	[60, 290], [175, 290], [290, 290]
     	]
     </jsonData>
 	<jsonData id="mgHideDetails">
