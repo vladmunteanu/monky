@@ -1,6 +1,7 @@
 using Toybox.System;
 using Toybox.WatchUi;
 using Toybox.Application;
+using Toybox.Attention;
 
 
 class MatchingGameDelegate extends WatchUi.InputDelegate {
@@ -25,6 +26,10 @@ class MatchingGameDelegate extends WatchUi.InputDelegate {
                     view.commons.selectPosition(i);
                     break;
                 }
+            }
+            if (Attention has :vibrate) {
+                var vibe = [new Attention.VibeProfile(20, 50)];
+                Attention.vibrate(vibe);
             }
         }
         return true;

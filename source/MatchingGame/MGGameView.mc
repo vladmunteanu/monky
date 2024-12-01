@@ -34,10 +34,31 @@ class MatchingGameCommons {
         pairs = new [numPairs];
         pairsMatched = new [numPairs];
 
-        for(var i = 0; i < numPairs / 2; i++) {
-            initializePair(i);
+        for (var i = 0; i < numPairs; i++) {
             pairsMatched[i] = false;
         }
+
+        for(var i = 0; i < numPairs / 2; i++) {
+            initializePair(i);
+        }
+    }
+
+    function initializePair(bitmapId) {
+        // first position
+        var position = findPosition();
+        pairs[position] = bitmapId;
+        // second position
+        position = findPosition();
+        pairs[position] = bitmapId;
+    }
+
+    function findPosition() {
+        var position;
+        do {
+            position = Math.rand() % numPairs;
+        }
+        while (pairs[position] != null);
+        return position;
     }
 
     function startTimer() {
@@ -98,24 +119,6 @@ class MatchingGameCommons {
                 dc.fillCircle(position[0] + hideDetails[0], position[1] + hideDetails[1], hideDetails[2]);
             }
         }
-    }
-
-    function initializePair(bitmapId) {
-        // first position
-        var position = findPosition();
-        pairs[position] = bitmapId;
-        // second position
-        position = findPosition();
-        pairs[position] = bitmapId;
-    }
-
-    function findPosition() {
-        var position;
-        do {
-            position = Math.rand() % numPairs;
-        }
-        while (pairs[position] != null);
-        return position;
     }
 
     function selectPosition(position) {
