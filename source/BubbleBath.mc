@@ -9,7 +9,7 @@ using Toybox.Lang;
 
 class BubbleBathView extends WatchUi.View {
 
-    var bathTubBitmap, monkyBitmap, animationHeight;
+    var bathTubBitmap, monkyBitmap, animationHeight, maxBubbleSize;
     var animationStep;
     var animationTimer;
     var startTime;
@@ -23,17 +23,31 @@ class BubbleBathView extends WatchUi.View {
 
     var minRewardTimeSpent = 3; // seconds
 
+    var bubbles;
+    var numBubbles = 3;
+    var maxBubbles = 15;
+
     function initialize() {
         View.initialize();
         animationStep = 0;
         totalAnimationSteps = 0;
         animationTimer = new Timer.Timer();
+
+        bubbles = new[maxBubbles];
+        for (var i = 0; i < maxBubbles; i++) {
+            if (i < numBubbles) {
+                bubbles[i] = true;
+            } else {
+                bubbles[i] = false;
+            }
+        }
     }
 
     function onLayout(dc) {
         bathTubBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.bath_tub});
         monkyBitmap = new WatchUi.Bitmap({:rezId=>Rez.Drawables.monky1});
         animationHeight = WatchUi.loadResource(Rez.JsonData.bathAnimationHeight);
+        maxBubbleSize = WatchUi.loadResource(Rez.JsonData.bathMaxBubbleSize);
     }
 
     function onShow() {
@@ -55,14 +69,25 @@ class BubbleBathView extends WatchUi.View {
         monkyBitmap.setLocation(maxX / 2 - monkyBitmap.width, maxY / 2 - monkyBitmap.height / 2 - monkyBitmap.height / 4.5);
         monkyBitmap.draw(dc);
 
+        // paint bubbles
+        for (var i = 0; i < numBubbles; i++) {
+            if (bubbles[i]) {
+                var bubbleX = (Math.rand() % 15) * i;
+                var bubbleY = (Math.rand() % 7) * i;
+                if (Math.rand() % 2 < 1) {
+                    bubbleX = bubbleX * (-1);
+                }
+                var size = 6 + i * 2;
+                if (size > maxBubbleSize) {
+                    size = maxBubbleSize;
+                }
+                drawBubble(dc, maxX / 2 + bubbleX, maxY / 2 - bubbleY, size);
+            }
+        }
+
         // paint the floor
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.fillRectangle(0, maxY / 2 + bathTubBitmap.height / 4, maxX, maxY);
-
-        // paint bubbles
-        drawBubble(dc, maxX / 2, maxY / 2, 10);
-        drawBubble(dc, maxX / 2 + 20, maxY / 2 - 5, 6);
-        drawBubble(dc, maxX / 2 + 35, maxY / 2 + 5, 8);
 
         // paint the bath tub
         bathTubBitmap.setLocation(maxX / 2 - bathTubBitmap.width / 2, maxY / 2 - bathTubBitmap.height / 2);
@@ -73,6 +98,7 @@ class BubbleBathView extends WatchUi.View {
         animationTimer.stop();
         var timeSpent = Math.floor((System.getTimer() - startTime) / 1000);
         Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_CLEAN, timeSpent, Constants.MAX_CLEAN);
+        Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_CLEAN, numBubbles * 5, Constants.MAX_CLEAN);
         if (timeSpent >= minRewardTimeSpent) {
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, 5, Constants.MAX_HAPPY);
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_XP, 10, null);
@@ -89,6 +115,13 @@ class BubbleBathView extends WatchUi.View {
             }
         }
         WatchUi.requestUpdate();
+    }
+
+    function drawScrub() {
+        if (numBubbles < maxBubbles) {
+            bubbles[numBubbles] = true;
+            numBubbles += 1;
+        }
     }
 
     function drawBubble(dc, x, y, initialRadius) {
@@ -112,5 +145,25 @@ class BubbleBathView extends WatchUi.View {
         animationTimer.stop();
         WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
     }
+}
 
+
+class BubbleBathDelegate extends WatchUi.InputDelegate {
+
+	var view;
+
+	function initialize(bbView) {
+		WatchUi.InputDelegate.initialize();
+		view = bbView;
+	}
+
+    function onFlick(flickEvent) {
+        view.drawScrub();
+        return true;
+    }
+
+	function onSwipe(swipeEvent) {
+        view.drawScrub();
+		return true;
+	}
 }

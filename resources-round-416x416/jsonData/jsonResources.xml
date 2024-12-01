@@ -5,6 +5,9 @@
 	<jsonData id="bathAnimationHeight">
 		20
 	</jsonData>
+	<jsonData id="bathMaxBubbleSize">
+		30
+	</jsonData>
     <jsonData id="wamHoles">
         [
         	[90, 150], [205, 150], [320, 150],

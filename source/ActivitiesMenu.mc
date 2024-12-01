@@ -31,7 +31,7 @@ class ActivitiesMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
         else if ( item.getId().equals(Constants.ACTIVITY_BATH) ) {
             var view = new BubbleBathView();
-            var delegate =  null;
+            var delegate = new BubbleBathDelegate(view);
             WatchUi.pushView(view, delegate, WatchUi.SLIDE_LEFT);
         }
         else if (item.getId().equals(Constants.ACTIVITY_SIMON)) {
