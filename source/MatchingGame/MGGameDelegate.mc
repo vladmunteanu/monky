@@ -13,7 +13,7 @@ class MatchingGameDelegate extends WatchUi.InputDelegate {
     }
 
     function onTap(clickEvent) {
-        if (view.commons.started && !view.commons.stopped) {
+        if (view.commons.gameState == GAME_STATE_PLAYING) {
             var position, lowerX, upperX, lowerY, upperY;
             var coordinates = clickEvent.getCoordinates();
             for (var i = 0; i < view.commons.numPairs; i++) {

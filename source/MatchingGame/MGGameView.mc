@@ -6,12 +6,19 @@ using Toybox.Graphics;
 using Toybox.Timer;
 using Toybox.Lang;
 
+enum {
+    GAME_STATE_INIT,
+    GAME_STATE_PLAYING,
+    GAME_STATE_FINISHED,
+    GAME_STATE_RESULTS
+}
+
 class MatchingGameCommons {
     var matched, failed;
     var selectedPosition;
 
     var timer, finishTimer;
-    var stopped, started;
+    var gameState;
     var finishTimeout = 30000;
     var timeout = 3000;
     var timeoutStarted = 5000;
@@ -24,8 +31,7 @@ class MatchingGameCommons {
         matched = 0;
         failed = 0;
         selectedPosition = null;
-        stopped = false;
-        started = false;
+        gameState = GAME_STATE_INIT;
 
         timer = new Timer.Timer();
         finishTimer = new Timer.Timer();
@@ -62,7 +68,7 @@ class MatchingGameCommons {
     }
 
     function startTimer() {
-        if (!started) {
+        if (gameState == GAME_STATE_INIT) {
             timer.start(self.method(:timerCallback), timeoutStarted, false);
         } else {
             timer.start(self.method(:timerCallback), timeout, false);
@@ -70,15 +76,20 @@ class MatchingGameCommons {
     }
 
     function timerCallback() {
-        if (!started) {
-            started = true;
+        if (gameState == GAME_STATE_INIT) {
+            gameState = GAME_STATE_PLAYING;
         }
-        if (selectedPosition != null) {
+        if (gameState == GAME_STATE_PLAYING && selectedPosition != null) {
             selectedPosition = null;
             failed++;
         }
+        if (gameState == GAME_STATE_FINISHED) {
+            gameState = GAME_STATE_RESULTS;
+        }
         WatchUi.requestUpdate();
-        startTimer();
+        if (gameState != GAME_STATE_RESULTS) {
+            startTimer();
+        }
     }
 
     function startFinishTimer() {
@@ -86,7 +97,7 @@ class MatchingGameCommons {
     }
 
     function finishTimerCallback() {
-        stopped = true;
+        gameState = GAME_STATE_RESULTS;
         timer.stop();
         finishTimer.stop();
         Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, matched * 2, Constants.MAX_HAPPY);
@@ -112,7 +123,7 @@ class MatchingGameCommons {
         for (var i = 0; i < numPairs; i++) {
             var position = positions[i];
             var bitmap = bitmaps[pairs[i]];
-            if (!started || selectedPosition == i || pairsMatched[i] == true) {
+            if (gameState == GAME_STATE_INIT || gameState == GAME_STATE_FINISHED || selectedPosition == i || pairsMatched[i] == true) {
                 bitmap.setLocation(position[0], position[1]);
                 bitmap.draw(dc);
             } else {
@@ -136,9 +147,8 @@ class MatchingGameCommons {
             selectedPosition = null;
         }
         if (matched + failed == numPairs / 2) {
-            stopped = true;
-            timer.stop();
-            finishTimer.stop();
+            gameState = GAME_STATE_FINISHED;
+            startTimer();
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_HAPPY, matched * 5, Constants.MAX_HAPPY);
             Application.getApp().incrCurrentStateItem(Constants.STATE_KEY_XP, matched * 10, null);
         }
@@ -166,7 +176,7 @@ class MatchingGameView extends WatchUi.View {
     function onUpdate(dc) {
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
         dc.clear();
-        if (!commons.stopped) {
+        if (commons.gameState != GAME_STATE_RESULTS) {
             commons.drawGame(dc);
         } else {
             var font = Graphics.FONT_MEDIUM;
@@ -183,7 +193,6 @@ class MatchingGameView extends WatchUi.View {
     }
 
     function onHide() {
-        commons.stopped = false;
         commons.timer.stop();
         commons.finishTimer.stop();
     }
